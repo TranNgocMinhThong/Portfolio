@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trần Ngọc Minh Thông — Full-stack Developer CV</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  /* ── Reset ── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 15px; }
+  body {
+    font-family: "Inter", sans-serif;
+    background: #f0ede8;
+    color: #1a1a1a;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* ── Print ── */
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; max-width: 100%; }
+    .no-print { display: none !important; }
+    @page { margin: 0; size: A4; }
+  }
+
+  /* ── Page ── */
+  .page {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    box-shadow: 0 4px 40px rgba(0,0,0,0.10);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .cv-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 32px;
+    padding: 52px 56px 40px;
+    background: #111;
+    color: #f5f4ef;
+    position: relative;
+  }
+  .cv-header::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 56px; right: 56px;
+    height: 1px;
+    background: rgba(255,255,255,0.10);
+  }
+
+  .header-name {
+    font-family: "Playfair Display", serif;
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: #fff;
+  }
+  .header-name em {
+    font-style: italic;
+    font-weight: 400;
+    color: #a78bfa;
+  }
+  .header-role {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #a78bfa;
+    margin-top: 10px;
+  }
+  .header-tagline {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #b0aea8;
+    max-width: 500px;
+    line-height: 1.6;
+  }
+  .header-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid rgba(167,139,250,0.4);
+    filter: grayscale(20%);
+  }
+  .header-photo-placeholder {
+    width: 100px; height: 100px; border-radius: 50%;
+    background: #2a2a3a;
+    border: 2px solid rgba(167,139,250,0.4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Playfair Display", serif;
+    font-size: 36px; color: #a78bfa;
+  }
+
+  /* ── Contact bar ── */
+  .contact-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    background: #1c1c2a;
+    padding: 0 56px;
+  }
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px 14px 0;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11.5px;
+    color: #d4d2cc;
+    text-decoration: none;
+    border-right: 1px solid rgba(255,255,255,0.06);
+    transition: color 180ms ease;
+  }
+  .contact-item:last-child { border-right: none; }
+  .contact-item:hover { color: #a78bfa; }
+  .contact-item svg { flex-shrink: 0; opacity: 0.7; }
+
+  /* ── Body ── */
+  .cv-body {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+  }
+
+  /* ── Sidebar ── */
+  .sidebar {
+    background: #f7f5f2;
+    padding: 40px 32px;
+    border-right: 1px solid #e8e4dc;
+  }
+
+  /* ── Main ── */
+  .main {
+    padding: 40px 48px;
+  }
+
+  /* ── Section ── */
+  .cv-section { margin-bottom: 36px; }
+  .cv-section:last-child { margin-bottom: 0; }
+
+  .section-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #a78bfa;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #e0dbd0;
+  }
+
+  /* Skills */
+  .skill-group { margin-bottom: 18px; }
+  .skill-group-name {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #6b6760;
+    margin-bottom: 8px;
+  }
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .skill-tag {
+    display: inline-block;
+    padding: 3px 9px;
+    background: #ede9e0;
+    border-radius: 3px;
+    font-size: 12px;
+    color: #2a2a2a;
+    font-weight: 500;
+    border: 1px solid #dcd7cc;
+    transition: background 160ms ease;
+  }
+  .skill-tag.hot {
+    background: #ede9ff;
+    border-color: #c4b5fd;
+    color: #5b21b6;
+  }
+
+  /* Sidebar info */
+  .info-row { margin-bottom: 12px; font-size: 13px; color: #3a3835; }
+  .info-label { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #9a9690; margin-bottom: 2px; }
+
+  /* Languages */
+  .lang-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; font-size: 13px; }
+  .lang-name { font-weight: 500; }
+  .lang-level { font-size: 11px; color: #9a9690; font-family: "JetBrains Mono", monospace; }
+  .lang-bar { height: 3px; background: #e0dbd0; border-radius: 99px; margin-top: 4px; }
+  .lang-fill { height: 100%; background: #a78bfa; border-radius: 99px; }
+
+  /* Education */
+  .edu-school { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+  .edu-degree { font-size: 13px; color: #5a5652; margin-top: 2px; }
+  .edu-year { font-family: "JetBrains Mono", monospace; font-size: 11px; color: #a78bfa; margin-top: 4px; }
+
+  /* Interests */
+  .interest-list { display: flex; flex-direction: column; gap: 6px; }
+  .interest-item { font-size: 12.5px; color: #4a4845; display: flex; align-items: center; gap: 8px; }
+  .interest-item::before { content: "→"; color: #a78bfa; font-family: "JetBrains Mono", monospace; font-size: 11px; }
+
+  /* Experience */
+  .exp-item { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid #f0ece4; }
+  .exp-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 4px; }
+  .exp-role {
+    font-family: "Playfair Display", serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1.2;
+  }
+  .exp-period {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    color: #a78bfa;
+    white-space: nowrap;
+    padding-top: 4px;
+  }
+  .exp-company { font-size: 13px; font-weight: 600; color: #5b21b6; margin-bottom: 10px; letter-spacing: 0.01em; }
+  .exp-stack {
+    display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;
+  }
+  .stack-badge {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    padding: 2px 7px;
+    background: #1a1a2e;
+    color: #c4b5fd;
+    border-radius: 3px;
+  }
+  .exp-bullets { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+  .exp-bullets li {
+    font-size: 13.5px;
+    color: #3a3835;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.55;
+  }
+  .exp-bullets li::before {
+    content: "·";
+    position: absolute; left: 0;
+    color: #a78bfa;
+    font-size: 18px;
+    line-height: 1.1;
+  }
+
+  /* Projects */
+  .proj-item { margin-bottom: 20px; padding: 16px; background: #faf9f6; border: 1px solid #ede9e0; border-radius: 4px; border-left: 3px solid #a78bfa; }
+  .proj-item:last-child { margin-bottom: 0; }
+  .proj-title { font-size: 14px; font-weight: 700; color: #111; margin-bottom: 3px; }
+  .proj-sub { font-size: 12px; color: #6b6760; margin-bottom: 8px; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .proj-desc { font-size: 12.5px; color: #4a4845; line-height: 1.55; }
+  .proj-impact { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+  .impact-chip { font-family: "JetBrains Mono", monospace; font-size: 10.5px; color: #5b21b6; background: #ede9ff; padding: 2px 8px; border-radius: 3px; }
+
+  /* Print button */
+  .print-bar {
+    text-align: center;
+    padding: 20px;
+    background: #f0ede8;
+  }
+  .btn-print {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 28px;
+    background: #111; color: #fff;
+    border: none; border-radius: 99px;
+    font-family: "Inter", sans-serif;
+    font-size: 13px; font-weight: 500;
+    cursor: pointer;
+    transition: background 200ms ease, transform 200ms ease;
+    text-decoration: none;
+  }
+  .btn-print:hover { background: #a78bfa; transform: translateY(-1px); }
+
+  @media (max-width: 700px) {
+    .cv-header { grid-template-columns: 1fr; padding: 36px 28px 32px; }
+    .contact-bar { padding: 0 28px; }
+    .cv-body { grid-template-columns: 1fr; }
+    .sidebar { border-right: none; border-bottom: 1px solid #e8e4dc; padding: 28px; }
+    .main { padding: 28px; }
+    .header-name { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar no-print">
+  <button class="btn-print" onclick="window.print()">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+    Print / Save as PDF
+  </button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="cv-header">
+    <div>
+      <div class="header-name">Trần Ngọc<br /><em>Minh Thông</em></div>
+      <div class="header-role">Full-stack Web Developer · 3+ Years</div>
+      <div class="header-tagline">
+        Building production web apps end-to-end — from database schema to responsive UI.
+        Strong in Laravel, Vue, React, Node.js. Shipped CRM, booking, eCommerce &amp; SaaS products.
+        Vibe coder who owns the full product lifecycle.
+      </div>
+    </div>
+    <img src="assets/me.jpeg" alt="Trần Ngọc Minh Thông" class="header-photo"
+         onerror="this.outerHTML='<div class=\'header-photo-placeholder\'>T</div>'" />
+  </div>
+
+  <!-- CONTACT BAR -->
+  <div class="contact-bar">
+    <a href="tel:0394097349" class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      0394 097 349
+    </a>
+    <a href="mailto:tranthng207@gmail.com" class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>
+      tranthng207@gmail.com
+    </a>
+    <a href="https://github.com/TranNgocMinhThong" class="contact-item" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      TranNgocMinhThong
+    </a>
+    <a href="https://www.linkedin.com/in/thong-tran-572488319/" class="contact-item" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <span class="contact-item">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Gò Vấp, Hồ Chí Minh
+    </span>
+  </div>
+
+  <!-- BODY -->
+  <div class="cv-body">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="cv-section">
+        <div class="section-label">Tech Stack</div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Backend</div>
+          <div class="skill-tags">
+            <span class="skill-tag hot">Laravel</span>
+            <span class="skill-tag hot">PHP</span>
+            <span class="skill-tag hot">Node.js</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">MySQL</span>
+            <span class="skill-tag">Microservices</span>
+            <span class="skill-tag">Socket.IO</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Frontend</div>
+          <div class="skill-tags">
+            <span class="skill-tag hot">React.js</span>
+            <span class="skill-tag hot">Vue.js</span>
+            <span class="skill-tag">TypeScript</span>
+            <span class="skill-tag">Redux Toolkit</span>
+            <span class="skill-tag">Tailwind CSS</span>
+            <span class="skill-tag">HTML / CSS</span>
+            <span class="skill-tag">WebGL / Three.js</span>
+            <span class="skill-tag">Responsive</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">CMS / Platform</div>
+          <div class="skill-tags">
+            <span class="skill-tag">WordPress</span>
+            <span class="skill-tag">Shopify</span>
+            <span class="skill-tag">Shopify API</span>
+            <span class="skill-tag">OAuth 2.0</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Payments & Infra</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Stripe</span>
+            <span class="skill-tag">PayPal</span>
+            <span class="skill-tag">Firebase</span>
+            <span class="skill-tag">Git</span>
+            <span class="skill-tag">Vite</span>
+            <span class="skill-tag">i18n</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name">Workflow</div>
+          <div class="skill-tags">
+            <span class="skill-tag">Vibe Coding</span>
+            <span class="skill-tag">Design Thinking</span>
+            <span class="skill-tag">RBAC</span>
+            <span class="skill-tag">AI-assisted dev</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Project Mgmt</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <div class="section-label">Education</div>
+        <div class="edu-school">Industrial University of Ho Chi Minh City</div>
+        <div class="edu-degree">B.S. Information Systems</div>
+        <div class="edu-year">2018 — 2022</div>
+      </div>
+
+      <div class="cv-section">
+        <div class="section-label">Languages</div>
+        <div class="lang-row">
+          <div>
+            <div class="lang-name">Vietnamese</div>
+            <div class="lang-bar"><div class="lang-fill" style="width:100%"></div></div>
+          </div>
+          <div class="lang-level">Native</div>
+        </div>
+        <div class="lang-row">
+          <div>
+            <div class="lang-name">English</div>
+            <div class="lang-bar"><div class="lang-fill" style="width:72%"></div></div>
+          </div>
+          <div class="lang-level">Professional</div>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <div class="section-label">Interests</div>
+        <div class="interest-list">
+          <div class="interest-item">Vibe coding with AI tools</div>
+          <div class="interest-item">Product architecture</div>
+          <div class="interest-item">3D / WebGL experiments</div>
+          <div class="interest-item">Open-source building</div>
+          <div class="interest-item">Clean code, ship fast</div>
+        </div>
+      </div>
+
+      <div class="cv-section">
+        <div class="section-label">Info</div>
+        <div class="info-row">
+          <div class="info-label">Date of birth</div>
+          25 / 07 / 2000
+        </div>
+        <div class="info-row">
+          <div class="info-label">Gender</div>
+          Male
+        </div>
+        <div class="info-row">
+          <div class="info-label">Status</div>
+          Open to hire · Remote-friendly
+        </div>
+      </div>
+
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+      <!-- EXPERIENCE -->
+      <div class="cv-section">
+        <div class="section-label">Experience</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Full-stack Web Developer</div>
+            <div class="exp-period">01/2025 — Present</div>
+          </div>
+          <div class="exp-company">Appif AI · Contract</div>
+          <div class="exp-stack">
+            <span class="stack-badge">React</span>
+            <span class="stack-badge">Node.js</span>
+            <span class="stack-badge">Laravel</span>
+            <span class="stack-badge">Vue.js</span>
+            <span class="stack-badge">TypeScript</span>
+            <span class="stack-badge">Shopify API</span>
+            <span class="stack-badge">Stripe</span>
+            <span class="stack-badge">Socket.IO</span>
+            <span class="stack-badge">Redux Toolkit</span>
+            <span class="stack-badge">WebGL</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Built <strong>Storypop</strong> — end-to-end Shopify video-commerce SaaS: TikTok/Instagram reel import, widget builder (4 types), embed SDK with cross-site token, analytics funnel, Stripe subscription &amp; OAuth auth.</li>
+            <li>Built <strong>Unobiz Business Portal</strong> — 10-module B2B React+TypeScript portal with RBAC via custom <code>usePermission</code> hook, real-time order updates via Socket.IO, bulk Excel import, i18n EN/VI.</li>
+            <li>Built <strong>MeinPointOf.Sale</strong> — Laravel eCommerce platform for print/POS industry: 10k+ price variants, 3D product configurator (WebGL), Stripe/PayPal/Sofort multi-gateway.</li>
+            <li>Leveraged AI-assisted (vibe coding) workflow to ship features significantly faster while maintaining clean architecture and code quality.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Full-stack Web Developer</div>
+            <div class="exp-period">04/2023 — 02/2025</div>
+          </div>
+          <div class="exp-company">Eye Design Sydney · Agency</div>
+          <div class="exp-stack">
+            <span class="stack-badge">Laravel</span>
+            <span class="stack-badge">Vue.js</span>
+            <span class="stack-badge">Flutter</span>
+            <span class="stack-badge">MySQL</span>
+            <span class="stack-badge">Stripe</span>
+            <span class="stack-badge">Firebase</span>
+            <span class="stack-badge">WordPress</span>
+            <span class="stack-badge">Shopify</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Built <strong>SAFA Booking</strong> — three-sided performer booking marketplace (user app, performer app, admin dashboard) with Stripe escrow, real-time chat, calendar conflict detection. 1.8k+ requests/month, 44% booking conversion, 4.7★ rating.</li>
+            <li>Delivered WordPress, Shopify and custom landing pages for beauty-industry clients; built CRM and booking web app tailored to salon workflows.</li>
+            <li>Managed host and domain administration; led responsive design across all client deliverables.</li>
+          </ul>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-role">Web Developer</div>
+            <div class="exp-period">09/2022 — 03/2023</div>
+          </div>
+          <div class="exp-company">Công ty TNHH TM DV Công Nghệ Trí Lực</div>
+          <div class="exp-stack">
+            <span class="stack-badge">PHP</span>
+            <span class="stack-badge">MySQL</span>
+            <span class="stack-badge">HTML/CSS</span>
+            <span class="stack-badge">JavaScript</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Database administration and website design for internal business systems.</li>
+            <li>Built and maintained ad-serving platform logic; developed responsive landing pages.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SELECTED PROJECTS -->
+      <div class="cv-section">
+        <div class="section-label">Selected Projects</div>
+
+        <div class="proj-item">
+          <div class="proj-title">Storypop — Shopify Video Commerce SaaS</div>
+          <div class="proj-sub">End-to-end Shopify app · 2025</div>
+          <div class="proj-stack">
+            <span class="stack-badge">React</span>
+            <span class="stack-badge">Node.js</span>
+            <span class="stack-badge">Shopify API</span>
+            <span class="stack-badge">Stripe</span>
+            <span class="stack-badge">Socket.IO</span>
+            <span class="stack-badge">i18next</span>
+          </div>
+          <div class="proj-desc">Reel library (TikTok/Instagram import + manual upload), 4-type widget builder with embed SDK, analytics dashboard (impressions → orders funnel), Stripe subscription billing. i18n: EN/DE/FR/JA.</div>
+          <div class="proj-impact">
+            <span class="impact-chip">4 widget types</span>
+            <span class="impact-chip">4 locales</span>
+            <span class="impact-chip">Stripe subscriptions</span>
+            <span class="impact-chip">Realtime pipeline</span>
+          </div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-title">Unobiz Business Portal — B2B Distributor Management</div>
+          <div class="proj-sub">Frontend lead · 2025</div>
+          <div class="proj-stack">
+            <span class="stack-badge">React</span>
+            <span class="stack-badge">TypeScript</span>
+            <span class="stack-badge">Redux Toolkit</span>
+            <span class="stack-badge">Socket.IO</span>
+            <span class="stack-badge">Tailwind</span>
+            <span class="stack-badge">i18next</span>
+          </div>
+          <div class="proj-desc">10-module portal (Products, RFQ, Inventory, Sale Orders, Employees, Customers, Receivable, Payment, Onboarding). RBAC decoupled from UI via usePermission hook. Real-time order status, bulk Excel import, EN/VI i18n.</div>
+          <div class="proj-impact">
+            <span class="impact-chip">10 modules</span>
+            <span class="impact-chip">RBAC per module/action</span>
+            <span class="impact-chip">Real-time socket</span>
+          </div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-title">SAFA Booking — Performer Marketplace</div>
+          <div class="proj-sub">Full-stack architecture · 2024</div>
+          <div class="proj-stack">
+            <span class="stack-badge">Laravel</span>
+            <span class="stack-badge">Vue.js</span>
+            <span class="stack-badge">Flutter</span>
+            <span class="stack-badge">MySQL</span>
+            <span class="stack-badge">Stripe</span>
+            <span class="stack-badge">Firebase</span>
+          </div>
+          <div class="proj-desc">Three-sided ecosystem: user booking app, performer app, admin dashboard. Stripe escrow, real-time chat, automatic calendar conflict detection.</div>
+          <div class="proj-impact">
+            <span class="impact-chip">1.8k+ req/month</span>
+            <span class="impact-chip">44% conversion</span>
+            <span class="impact-chip">4.7★ avg rating</span>
+          </div>
+        </div>
+
+        <div class="proj-item">
+          <div class="proj-title">MeinPointOf.Sale — Print & POS eCommerce</div>
+          <div class="proj-sub">Full-stack · 2025</div>
+          <div class="proj-stack">
+            <span class="stack-badge">Laravel</span>
+            <span class="stack-badge">Vue.js</span>
+            <span class="stack-badge">WebGL</span>
+            <span class="stack-badge">Stripe</span>
+            <span class="stack-badge">PayPal</span>
+            <span class="stack-badge">Sofort</span>
+          </div>
+          <div class="proj-desc">Full eCommerce platform for print/POS displays. Dimension/material/quantity configurator with real-time 3D preview. 10k+ price variants, multi-gateway payments, unified admin panel.</div>
+          <div class="proj-impact">
+            <span class="impact-chip">10k+ price variants</span>
+            <span class="impact-chip">3D WebGL preview</span>
+            <span class="impact-chip">3 payment gateways</span>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div><!-- /cv-body -->
+
+</div><!-- /page -->
+
+</body>
+</html>
