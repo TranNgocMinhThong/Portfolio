@@ -50,7 +50,7 @@ const PROJECTS = [
 {
   id: "ordertable",
   n: "02",
-  title: "OrderTable v2",
+  title: "OrderTable",
   subtitle: "Backend POS/ERP multi-tenant — Laravel modular monolith",
   subtitleEn: "Multi-tenant POS/ERP backend — Laravel modular monolith",
   year: "2026",
