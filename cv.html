@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Trần Ngọc Minh Thông — Full-stack Developer CV</title>
+<title>Trần Ngọc Minh Thông — Flutter Mobile Developer CV</title>
+<meta name="description" content="Flutter mobile developer with a 4+ year full-stack background (Laravel, React, Vue, Node). Clean Architecture, ESC/POS printing, POS/ERP, AI-assisted engineering with Claude Code and Cursor." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -38,23 +39,6 @@
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
-  }
-
-  /* ── Print ── */
-  @media print {
-    html { font-size: 14px; }
-    body { background: #fff; }
-    .page { box-shadow: none; max-width: 100%; margin: 0; border-radius: 0; }
-    .no-print { display: none !important; }
-    @page { margin: 10mm 0; size: A4; }
-
-    /* Keep blocks from splitting across pages */
-    .exp-item, .proj-item, .cv-section { break-inside: avoid; page-break-inside: avoid; }
-    .section-label { break-after: avoid; page-break-after: avoid; }
-    .sidebar { border-right: 1px solid var(--line); }
-
-    /* Ensure links are readable on paper */
-    .contact-item, .contact-item:hover { color: var(--ink-2); }
   }
 
   /* ── Page ── */
@@ -286,6 +270,7 @@
     width: 4px; height: 4px; border-radius: 50%;
     background: var(--accent);
   }
+  .exp-bullets a { color: var(--accent-deep); text-decoration: none; font-weight: 500; }
   .exp-bullets code {
     font-family: "JetBrains Mono", monospace;
     font-size: 11.5px;
@@ -368,6 +353,59 @@
     .header-name { font-size: 30px; }
     .exp-header { flex-direction: column; gap: 2px; }
   }
+  /* ── Print ── */
+  @media print {
+    html { font-size: 12px; }
+    body { background: #fff; }
+    .page { box-shadow: none; max-width: 100%; margin: 0; border-radius: 0; }
+    .no-print { display: none !important; }
+    @page { margin: 6mm 0; size: A4; }
+
+    /* Tighter rhythm on paper */
+    .cv-header { padding: 18px 32px 12px; gap: 20px; }
+    .header-name { font-size: 30px; }
+    .header-role { margin-top: 8px; font-size: 9.5px; }
+    .header-tagline { margin-top: 8px; font-size: 11px; line-height: 1.45; max-width: 560px; }
+    .header-photo, .header-photo-placeholder { width: 76px; height: 76px; }
+    .contact-bar { padding: 7px 32px; gap: 0 14px; }
+    .contact-item { font-size: 9.5px; padding: 2px 0; }
+    .cv-body { grid-template-columns: 210px 1fr; }
+    .sidebar { padding: 16px 18px; border-right: 1px solid var(--line); }
+    .main { padding: 16px 24px; }
+    .cv-section { margin-bottom: 11px; }
+    .section-label { margin-bottom: 9px; font-size: 8.5px; }
+    .skill-group { margin-bottom: 9px; }
+    .skill-group-name { margin-bottom: 4px; font-size: 9px; }
+    .skill-tag { font-size: 9.5px; padding: 1px 5px; }
+    .info-row { margin-bottom: 6px; font-size: 11px; }
+    .lang-row { margin-bottom: 6px; font-size: 11px; }
+    .interest-item { font-size: 10.5px; }
+    .edu-school, .edu-degree { font-size: 11px; }
+    .exp-item { margin-bottom: 8px; padding-bottom: 8px; }
+    .exp-role { font-size: 13.5px; }
+    .exp-company { margin-bottom: 5px; font-size: 11px; }
+    .exp-stack { margin-bottom: 5px; gap: 3px; }
+    .stack-badge { font-size: 8.5px; padding: 1px 5px; }
+    .exp-bullets { gap: 2px; }
+    .exp-bullets li { font-size: 10.5px; line-height: 1.42; padding-left: 12px; }
+    .exp-bullets li::before { top: 6px; width: 3px; height: 3px; }
+    .exp-bullets code { font-size: 9.5px; }
+    .proj-item { margin-bottom: 6px; padding: 7px 10px; }
+    .proj-title { font-size: 11.5px; }
+    .proj-sub { font-size: 10px; margin-bottom: 4px; }
+    .proj-stack { margin-bottom: 4px; }
+    .proj-desc { font-size: 10px; line-height: 1.4; }
+    .proj-impact { margin-top: 5px; }
+    .impact-chip { font-size: 8.5px; padding: 1px 5px; }
+
+    /* Keep small blocks together; let big sections flow */
+    .proj-item, .skill-group { break-inside: avoid; page-break-inside: avoid; }
+    .exp-bullets li { break-inside: avoid; }
+    .section-label { break-after: avoid; page-break-after: avoid; }
+
+    /* Ensure links are readable on paper */
+    .contact-item, .contact-item:hover { color: var(--ink-2); }
+  }
 </style>
 </head>
 <body>
@@ -390,19 +428,21 @@
     <div>
       <div class="header-name">Trần Ngọc<br /><em>Minh Thông</em></div>
       <div class="header-role">
-        <span data-lang-en>Full-stack &amp; Mobile Developer · 4+ Years</span>
-        <span data-lang-vi>Lập trình viên Full-stack &amp; Mobile · 4+ năm</span>
+        <span data-lang-en>Flutter Mobile Developer · Full-stack background · 4+ Years</span>
+        <span data-lang-vi>Lập trình viên Flutter Mobile · Nền tảng Full-stack · 4+ năm</span>
       </div>
       <div class="header-tagline">
         <span data-lang-en>
-          Building production systems end-to-end — from database schema to responsive UI.
-          4+ years on Laravel, Vue, React and Node; currently owning both sides of an F&amp;B POS/ERP at Nasys —
-          a large Flutter client and a 19-domain Laravel modular monolith, after picking up Flutter from scratch in 6 months.
+          Flutter developer who ships production POS/ERP software and owns the backend behind it.
+          At Nasys I lead a ~777K-line Flutter client on Clean Architecture (24 feature modules, 5 printer drivers, hand-rolled ESC/POS stack)
+          and the 19-domain Laravel modular monolith it talks to. 4+ years of Laravel / React / Vue / Node before that.
+          Daily AI-assisted workflow with Claude Code and Cursor — AI drafts, I design and review.
         </span>
         <span data-lang-vi>
-          Xây sản phẩm end-to-end — từ thiết kế database đến giao diện responsive.
-          Hơn 4 năm với Laravel, Vue, React và Node; hiện phụ trách cả hai đầu của hệ POS/ERP ngành F&amp;B tại Nasys —
-          một Flutter client quy mô lớn và một Laravel modular monolith 19 domain, sau khi tự học Flutter từ đầu trong 6 tháng.
+          Lập trình viên Flutter ship phần mềm POS/ERP production và own luôn backend phía sau.
+          Tại Nasys tôi phụ trách Flutter client ~777K dòng trên Clean Architecture (24 feature module, 5 driver máy in, hệ in ESC/POS tự viết)
+          cùng Laravel modular monolith 19 domain phục vụ nó. Trước đó là 4+ năm Laravel / React / Vue / Node.
+          Quy trình AI-assisted hằng ngày với Claude Code và Cursor — AI draft, tôi thiết kế và review.
         </span>
       </div>
     </div>
@@ -428,6 +468,10 @@
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
       LinkedIn
     </a>
+    <a href="https://tranngocminhthong.github.io/Portfolio/" class="contact-item" target="_blank">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      tranngocminhthong.github.io/Portfolio
+    </a>
     <span class="contact-item">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
       <span data-lang-en>Go Vap, Ho Chi Minh City</span><span data-lang-vi>Gò Vấp, TP. Hồ Chí Minh</span>
@@ -444,14 +488,32 @@
         <div class="section-label"><span data-lang-en>Tech Stack</span><span data-lang-vi>Công nghệ</span></div>
 
         <div class="skill-group">
-          <div class="skill-group-name"><span data-lang-en>Mobile</span><span data-lang-vi>Mobile</span></div>
+          <div class="skill-group-name"><span data-lang-en>Mobile · Flutter</span><span data-lang-vi>Mobile · Flutter</span></div>
           <div class="skill-tags">
             <span class="skill-tag hot">Flutter</span>
             <span class="skill-tag hot">Dart</span>
-            <span class="skill-tag">Riverpod</span>
+            <span class="skill-tag hot">Riverpod (code-gen)</span>
+            <span class="skill-tag hot">Clean Architecture</span>
             <span class="skill-tag">Retrofit / Dio</span>
             <span class="skill-tag">AutoRoute</span>
-            <span class="skill-tag">ESC/POS</span>
+            <span class="skill-tag">ESC/POS printing</span>
+            <span class="skill-tag">BLE / USB / Serial</span>
+            <span class="skill-tag">Socket.IO</span>
+            <span class="skill-tag">FCM</span>
+            <span class="skill-tag">flutter_test</span>
+            <span class="skill-tag">Android / iOS / Web</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-name"><span data-lang-en>AI-assisted engineering</span><span data-lang-vi>AI-assisted engineering</span></div>
+          <div class="skill-tags">
+            <span class="skill-tag hot">Claude Code</span>
+            <span class="skill-tag hot">Cursor / Copilot</span>
+            <span class="skill-tag">Agent context docs</span>
+            <span class="skill-tag">Spec-driven prompting</span>
+            <span class="skill-tag">AI code review</span>
+            <span class="skill-tag">AI test generation</span>
           </div>
         </div>
 
@@ -459,11 +521,10 @@
           <div class="skill-group-name"><span data-lang-en>Backend</span><span data-lang-vi>Backend</span></div>
           <div class="skill-tags">
             <span class="skill-tag hot">Laravel</span>
-            <span class="skill-tag hot">PHP</span>
-            <span class="skill-tag hot">Node.js</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">Node.js</span>
             <span class="skill-tag">REST API</span>
             <span class="skill-tag">MySQL</span>
-            <span class="skill-tag">Socket.IO</span>
             <span class="skill-tag">PHPUnit</span>
           </div>
         </div>
@@ -471,10 +532,10 @@
         <div class="skill-group">
           <div class="skill-group-name"><span data-lang-en>Architecture</span><span data-lang-vi>Kiến trúc</span></div>
           <div class="skill-tags">
-            <span class="skill-tag hot">Clean Architecture</span>
             <span class="skill-tag">DDD</span>
             <span class="skill-tag">Modular monolith</span>
             <span class="skill-tag">Multi-tenant</span>
+            <span class="skill-tag">Strangler migration</span>
             <span class="skill-tag">Event-driven</span>
             <span class="skill-tag">RBAC</span>
           </div>
@@ -483,47 +544,26 @@
         <div class="skill-group">
           <div class="skill-group-name"><span data-lang-en>Frontend</span><span data-lang-vi>Frontend</span></div>
           <div class="skill-tags">
-            <span class="skill-tag hot">React.js</span>
-            <span class="skill-tag hot">Vue.js</span>
+            <span class="skill-tag">React.js</span>
+            <span class="skill-tag">Vue.js</span>
             <span class="skill-tag">TypeScript</span>
             <span class="skill-tag">Redux Toolkit</span>
             <span class="skill-tag">Tailwind CSS</span>
-            <span class="skill-tag">HTML / CSS</span>
             <span class="skill-tag">WebGL / Three.js</span>
-            <span class="skill-tag">Responsive</span>
           </div>
         </div>
 
         <div class="skill-group">
-          <div class="skill-group-name"><span data-lang-en>CMS / Platform</span><span data-lang-vi>CMS / Nền tảng</span></div>
-          <div class="skill-tags">
-            <span class="skill-tag">WordPress</span>
-            <span class="skill-tag">Shopify</span>
-            <span class="skill-tag">Shopify API</span>
-            <span class="skill-tag">OAuth 2.0</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-name"><span data-lang-en>Payments &amp; Infra</span><span data-lang-vi>Thanh toán &amp; Hạ tầng</span></div>
+          <div class="skill-group-name"><span data-lang-en>Integrations &amp; Tools</span><span data-lang-vi>Tích hợp &amp; Công cụ</span></div>
           <div class="skill-tags">
             <span class="skill-tag">Stripe</span>
-            <span class="skill-tag">PayPal</span>
+            <span class="skill-tag">VNPay / VietQR</span>
             <span class="skill-tag">Firebase</span>
-            <span class="skill-tag">Git</span>
-            <span class="skill-tag">Vite</span>
+            <span class="skill-tag">Shopify API</span>
+            <span class="skill-tag">OAuth 2.0</span>
             <span class="skill-tag">i18n</span>
-          </div>
-        </div>
-
-        <div class="skill-group">
-          <div class="skill-group-name"><span data-lang-en>Workflow</span><span data-lang-vi>Quy trình</span></div>
-          <div class="skill-tags">
-            <span class="skill-tag">AI-assisted dev</span>
-            <span class="skill-tag">Design Thinking</span>
-            <span class="skill-tag">Code review</span>
+            <span class="skill-tag">Git / GitHub Actions</span>
             <span class="skill-tag">Figma</span>
-            <span class="skill-tag">Project Mgmt</span>
           </div>
         </div>
       </div>
@@ -556,11 +596,10 @@
       <div class="cv-section">
         <div class="section-label"><span data-lang-en>Interests</span><span data-lang-vi>Quan tâm</span></div>
         <div class="interest-list">
-          <div class="interest-item"><span data-lang-en>Vibe coding with AI tools</span><span data-lang-vi>Lập trình cùng công cụ AI</span></div>
-          <div class="interest-item"><span data-lang-en>Product architecture</span><span data-lang-vi>Kiến trúc sản phẩm</span></div>
+          <div class="interest-item"><span data-lang-en>AI agent workflows (Claude Code, Cursor)</span><span data-lang-vi>Quy trình AI agent (Claude Code, Cursor)</span></div>
+          <div class="interest-item"><span data-lang-en>Flutter performance &amp; architecture</span><span data-lang-vi>Hiệu năng &amp; kiến trúc Flutter</span></div>
+          <div class="interest-item"><span data-lang-en>POS hardware &amp; printing protocols</span><span data-lang-vi>Phần cứng POS &amp; giao thức in</span></div>
           <div class="interest-item"><span data-lang-en>3D / WebGL experiments</span><span data-lang-vi>Thử nghiệm 3D / WebGL</span></div>
-          <div class="interest-item"><span data-lang-en>Open-source building</span><span data-lang-vi>Xây dựng mã nguồn mở</span></div>
-          <div class="interest-item"><span data-lang-en>Clean code, ship fast</span><span data-lang-vi>Code sạch, ship nhanh</span></div>
         </div>
       </div>
 
@@ -576,7 +615,7 @@
         </div>
         <div class="info-row">
           <div class="info-label"><span data-lang-en>Status</span><span data-lang-vi>Trạng thái</span></div>
-          <span data-lang-en>Open to hire · Remote-friendly</span><span data-lang-vi>Sẵn sàng nhận việc · Remote</span>
+          <span data-lang-en>Open to Flutter / mobile roles · Remote-friendly</span><span data-lang-vi>Sẵn sàng cho vị trí Flutter / mobile · Remote</span>
         </div>
       </div>
 
@@ -585,16 +624,27 @@
     <!-- MAIN CONTENT -->
     <main class="main">
 
+      <!-- HIGHLIGHTS -->
+      <div class="cv-section">
+        <div class="section-label"><span data-lang-en>Highlights</span><span data-lang-vi>Điểm nổi bật</span></div>
+        <ul class="exp-bullets">
+          <li><span data-lang-en><strong>Flutter at scale:</strong> lead developer on a ~777K-line Dart POS/ERP client — Clean Architecture, feature-first, 24 feature + 15 shared modules, 440 use cases, Riverpod code-gen, 325 test files, 5 locales, Android / iOS / web.</span><span data-lang-vi><strong>Flutter quy mô lớn:</strong> lead developer của POS/ERP client ~777K dòng Dart — Clean Architecture, feature-first, 24 feature + 15 shared module, 440 usecase, Riverpod code-gen, 325 file test, 5 ngôn ngữ, Android / iOS / web.</span></li>
+          <li><span data-lang-en><strong>Hardware &amp; printing:</strong> hand-rolled ESC/POS stack — 5 printer drivers (LAN / Bluetooth / USB / Sunmi / iMin), Vietnamese thermal rasterizer, per-printer FIFO queue; integrated scales, fingerprint clocks, serial QR-payment boxes, customer displays.</span><span data-lang-vi><strong>Phần cứng &amp; in ấn:</strong> hệ ESC/POS tự viết — 5 driver máy in (LAN / Bluetooth / USB / Sunmi / iMin), rasterize tiếng Việt cho máy in nhiệt, queue FIFO theo máy; tích hợp cân, máy chấm công vân tay, hộp QR payment serial, màn hình khách.</span></li>
+          <li><span data-lang-en><strong>Backend ownership:</strong> restructured the Laravel backend into a 19-domain modular monolith (698 use cases, 5 API surfaces, database-per-tenant, 608-key RBAC); tests 251 → 935.</span><span data-lang-vi><strong>Own backend:</strong> tái cấu trúc Laravel backend thành modular monolith 19 domain (698 usecase, 5 API surface, database-per-tenant, RBAC 608 quyền); test 251 → 935.</span></li>
+          <li><span data-lang-en><strong>AI-assisted engineering:</strong> daily Claude Code + Cursor workflow — architecture standard as agent context, spec → scaffold → human review; money, stock and hardware code stays hand-written.</span><span data-lang-vi><strong>AI-assisted engineering:</strong> quy trình Claude Code + Cursor hằng ngày — chuẩn kiến trúc làm context cho agent, spec → scaffold → người review; code tiền, kho và phần cứng luôn viết tay.</span></li>
+        </ul>
+      </div>
+
       <!-- EXPERIENCE -->
       <div class="cv-section">
         <div class="section-label"><span data-lang-en>Experience</span><span data-lang-vi>Kinh nghiệm</span></div>
 
         <div class="exp-item">
           <div class="exp-header">
-            <div class="exp-role"><span data-lang-en>Full-stack &amp; Mobile Developer</span><span data-lang-vi>Lập trình viên Full-stack &amp; Mobile</span></div>
+            <div class="exp-role"><span data-lang-en>Flutter Mobile &amp; Full-stack Developer</span><span data-lang-vi>Lập trình viên Flutter Mobile &amp; Full-stack</span></div>
             <div class="exp-period"><span data-lang-en>02/2026 — Present</span><span data-lang-vi>02/2026 — Hiện tại</span></div>
           </div>
-          <div class="exp-company">Nasys</div>
+          <div class="exp-company"><span data-lang-en>Nasys · F&amp;B POS/ERP</span><span data-lang-vi>Nasys · POS/ERP ngành F&amp;B</span></div>
           <div class="exp-stack">
             <span class="stack-badge">Flutter</span>
             <span class="stack-badge">Dart</span>
@@ -608,14 +658,14 @@
             <span class="stack-badge">PHPUnit</span>
           </div>
           <ul class="exp-bullets">
-            <li><span data-lang-en>Own both ends of a multi-tenant <strong>F&amp;B POS/ERP</strong> — the Flutter POS client and the Laravel backend serving it.</span><span data-lang-vi>Phụ trách cả hai đầu của hệ <strong>POS/ERP ngành F&amp;B</strong> multi-tenant — Flutter POS client và Laravel backend phục vụ nó.</span></li>
-            <li><span data-lang-en><strong>Mobile:</strong> migrated a 99K-line monolith to Clean Architecture + feature-first Flutter — <strong>24 feature modules</strong>, 440 use cases, 611 API endpoints, all DI/state on code-generated Riverpod. Codified the architecture rules into a 1,236-line internal standard the team builds against.</span><span data-lang-vi><strong>Mobile:</strong> chuyển monolith 99K dòng sang Clean Architecture + feature-first Flutter — <strong>24 feature module</strong>, 440 usecase, 611 API endpoint, toàn bộ DI/state bằng Riverpod code-gen. Codify luật kiến trúc thành tài liệu chuẩn nội bộ 1.236 dòng cho cả team tuân theo.</span></li>
-            <li><span data-lang-en>Built the <strong>ESC/POS printing stack</strong> from scratch: 5 hardware drivers (LAN / Bluetooth / USB / Sunmi / iMin), 11 receipt builders, a Vietnamese-diacritics rasterizer for thermal heads, and a per-printer FIFO queue that parallelises across printers without deadlocking on a failed job.</span><span data-lang-vi>Tự xây <strong>hệ thống in ESC/POS</strong> từ đầu: 5 driver phần cứng (LAN / Bluetooth / USB / Sunmi / iMin), 11 builder hoá đơn, bộ rasterize tiếng Việt có dấu cho máy in nhiệt, và print queue FIFO theo từng máy in — chạy song song giữa các máy mà không deadlock khi một job lỗi.</span></li>
-            <li><span data-lang-en>Integrated POS peripherals — digital scales, fingerprint clock-in, serial QR-payment box, customer-facing secondary display — plus Socket.IO realtime with event de-duplication across overlapping channels.</span><span data-lang-vi>Tích hợp thiết bị ngoại vi POS — cân điện tử, máy chấm công vân tay, thiết bị QR payment qua cổng serial, màn hình phụ hướng khách — cùng realtime Socket.IO có khử trùng lặp sự kiện giữa các kênh chồng lấn.</span></li>
-            <li><span data-lang-en>Designed <strong>Proportional Canvas Scaling</strong>, a responsive strategy that scales the POS layout uniformly instead of reflowing it; cut cart-interaction rebuilds by isolating state behind ChangeNotifier/ValueNotifier + RepaintBoundary.</span><span data-lang-vi>Thiết kế <strong>Proportional Canvas Scaling</strong> — giải pháp responsive scale đồng tỉ lệ bố cục POS thay vì reflow; cắt rebuild khi thao tác giỏ hàng bằng cách cô lập state qua ChangeNotifier/ValueNotifier + RepaintBoundary.</span></li>
-            <li><span data-lang-en><strong>Backend:</strong> restructured a God-Controller codebase (CartController alone: 7,388 lines / 53 methods) into a <strong>19-domain modular monolith</strong> with <strong>698 use cases</strong>; one business action serves all 5 API surfaces (admin / cashier / staff / kitchen / core).</span><span data-lang-vi><strong>Backend:</strong> tái cấu trúc codebase God-Controller (riêng CartController: 7.388 dòng / 53 method) thành <strong>modular monolith 19 domain</strong> với <strong>698 usecase</strong>; một business action phục vụ cả 5 API surface (admin / thu ngân / phục vụ / bếp / core).</span></li>
-            <li><span data-lang-en>Led a <strong>strangler migration</strong> to API v2 under a hard no-change constraint on legacy code, routes and schema — 17/17 domains covered, ~716 routes; merged a separate HRM/ERP app in over 9 porting waves (72+ endpoints).</span><span data-lang-vi>Dẫn dắt <strong>strangler migration</strong> sang API v2 với ràng buộc tuyệt đối không sửa code, route và schema cũ — phủ kín 17/17 domain, ~716 route; sáp nhập app HRM/ERP riêng qua 9 đợt port (72+ endpoint).</span></li>
-            <li><span data-lang-en>Hardened money-flow and stock concurrency: single-write-point Actions, claim mutexes against double-apply, <code>lockForUpdate</code> + cache locks on cash-fund rows. Grew the test suite from 251 to <strong>935 tests</strong>.</span><span data-lang-vi>Gia cố concurrency cho luồng tiền và tồn kho: Action single-write-point, claim mutex chống double-apply, <code>lockForUpdate</code> + cache lock trên row quỹ. Nâng test suite từ 251 lên <strong>935 test</strong>.</span></li>
+            <li><span data-lang-en>Lead Flutter developer on a multi-tenant, multi-branch <strong>restaurant POS/ERP</strong> (ordering, payments, kitchen tickets, inventory, HRM, tax) running on counter tablets, Sunmi/iMin handhelds and web — and owner of the Laravel backend serving it.</span><span data-lang-vi>Lead Flutter developer của hệ <strong>POS/ERP nhà hàng</strong> multi-tenant, đa chi nhánh (gọi món, thanh toán, phiếu bếp, kho, HRM, thuế) chạy trên tablet quầy, máy cầm tay Sunmi/iMin và web — kiêm own Laravel backend phục vụ nó.</span></li>
+            <li><span data-lang-en>Migrated a 99K-line Flutter monolith to <strong>Clean Architecture + feature-first</strong>: 24 feature + 15 shared modules, 440 use cases, 246 entities, 611 API endpoints, all DI/state on code-generated Riverpod; 325 test files. Wrote the 1,236-line architecture standard the team — and the AI agent — build against.</span><span data-lang-vi>Chuyển monolith Flutter 99K dòng sang <strong>Clean Architecture + feature-first</strong>: 24 feature + 15 shared module, 440 usecase, 246 entity, 611 API endpoint, toàn bộ DI/state bằng Riverpod code-gen; 325 file test. Viết tài liệu chuẩn kiến trúc 1.236 dòng cho cả team — và AI agent — tuân theo.</span></li>
+            <li><span data-lang-en>Built the <strong>ESC/POS printing stack</strong> from scratch: 5 hardware drivers (LAN / Bluetooth / USB / Sunmi / iMin), 11 receipt builders, a Vietnamese-diacritics rasterizer for thermal heads, and a per-printer FIFO queue that runs printers in parallel without a failed job deadlocking the rest.</span><span data-lang-vi>Tự xây <strong>hệ thống in ESC/POS</strong> từ đầu: 5 driver phần cứng (LAN / Bluetooth / USB / Sunmi / iMin), 11 builder hoá đơn, bộ rasterize tiếng Việt có dấu cho máy in nhiệt, và print queue FIFO theo từng máy in — chạy song song mà một job lỗi không làm kẹt máy khác.</span></li>
+            <li><span data-lang-en>Integrated POS peripherals — digital scales, fingerprint clock-in, serial QR-payment box, customer-facing secondary display — plus Socket.IO realtime with event de-duplication across overlapping channels and FCM push.</span><span data-lang-vi>Tích hợp thiết bị ngoại vi POS — cân điện tử, máy chấm công vân tay, hộp QR payment qua cổng serial, màn hình phụ hướng khách — cùng realtime Socket.IO có khử trùng lặp sự kiện giữa các kênh chồng lấn và FCM push.</span></li>
+            <li><span data-lang-en>Designed <strong>Proportional Canvas Scaling</strong> (scale the POS layout uniformly instead of reflowing it, so cashiers keep muscle memory across devices); cut cart-tap rebuilds of a 100+ item grid by isolating CartState behind ChangeNotifier/ValueNotifier + RepaintBoundary.</span><span data-lang-vi>Thiết kế <strong>Proportional Canvas Scaling</strong> (scale đồng tỉ lệ bố cục POS thay vì reflow, để thu ngân giữ thói quen thao tác trên mọi thiết bị); cắt rebuild lưới 100+ món khi thao tác giỏ hàng bằng cách cô lập CartState qua ChangeNotifier/ValueNotifier + RepaintBoundary.</span></li>
+            <li><span data-lang-en><strong>Backend:</strong> restructured a God-Controller codebase (CartController: 7,388 lines / 53 methods) into a <strong>19-domain modular monolith</strong>, 698 use cases, one Action serving all 5 API surfaces; strangler migration to API v2 (17/17 domains, ~716 routes) with zero changes to legacy code or schema; merged a separate HRM app in 9 porting waves.</span><span data-lang-vi><strong>Backend:</strong> tái cấu trúc codebase God-Controller (CartController: 7.388 dòng / 53 method) thành <strong>modular monolith 19 domain</strong>, 698 usecase, một Action phục vụ cả 5 API surface; strangler migration sang API v2 (17/17 domain, ~716 route) không sửa code hay schema cũ; sáp nhập app HRM riêng qua 9 đợt port.</span></li>
+            <li><span data-lang-en>Hardened money-flow and stock concurrency with single-write-point Actions, claim mutexes, <code>lockForUpdate</code> and cache locks; grew the backend test suite from 251 to <strong>935 tests</strong>.</span><span data-lang-vi>Gia cố concurrency luồng tiền và tồn kho bằng Action single-write-point, claim mutex, <code>lockForUpdate</code> và cache lock; nâng test suite backend từ 251 lên <strong>935 test</strong>.</span></li>
+            <li><span data-lang-en><strong>AI workflow:</strong> used Claude Code to scaffold feature modules and port legacy controllers against the written standard, one reviewed pull request per wave; used it to audit the legacy codebase (found <code>SysParameter::all()</code> duplicated across 22 controllers and 3 forked <code>worktable()</code> copies, 2 of them computing overnight shifts wrong) and to draft tests I verified by hand.</span><span data-lang-vi><strong>Quy trình AI:</strong> dùng Claude Code scaffold feature module và port controller cũ theo chuẩn đã viết, mỗi đợt một pull request được review; dùng để audit codebase cũ (phát hiện <code>SysParameter::all()</code> lặp ở 22 controller và 3 bản <code>worktable()</code> fork, 2 bản tính sai ca qua đêm) và draft test tôi kiểm tra lại bằng tay.</span></li>
           </ul>
         </div>
 
@@ -641,7 +691,7 @@
             <li><span data-lang-en>Built <strong>Storypop</strong> — end-to-end Shopify video-commerce SaaS: TikTok/Instagram reel import, widget builder (4 types), embed SDK with cross-site token, analytics funnel, Stripe subscription &amp; OAuth auth.</span><span data-lang-vi>Xây <strong>Storypop</strong> — SaaS video-commerce cho Shopify end-to-end: import reel từ TikTok/Instagram, widget builder (4 loại), embed SDK có token cross-site, analytics funnel, Stripe subscription &amp; OAuth.</span></li>
             <li><span data-lang-en>Built <strong>Unobiz Business Portal</strong> — 10-module B2B React+TypeScript portal with RBAC via custom <code>usePermission</code> hook, real-time order updates via Socket.IO, bulk Excel import, i18n EN/VI.</span><span data-lang-vi>Xây <strong>Unobiz Business Portal</strong> — portal B2B React+TypeScript 10 module với RBAC qua hook <code>usePermission</code> tự viết, cập nhật đơn real-time qua Socket.IO, import Excel hàng loạt, i18n EN/VI.</span></li>
             <li><span data-lang-en>Built <strong>MeinPointOf.Sale</strong> — Laravel eCommerce platform for print/POS industry: 10k+ price variants, 3D product configurator (WebGL), Stripe/PayPal/Sofort multi-gateway.</span><span data-lang-vi>Xây <strong>MeinPointOf.Sale</strong> — nền tảng eCommerce Laravel cho ngành in ấn/POS: 10k+ biến thể giá, configurator sản phẩm 3D (WebGL), đa cổng thanh toán Stripe/PayPal/Sofort.</span></li>
-            <li><span data-lang-en>Leveraged AI-assisted (vibe coding) workflow to ship features significantly faster while maintaining clean architecture and code quality.</span><span data-lang-vi>Vận dụng quy trình lập trình hỗ trợ bởi AI để ship tính năng nhanh hơn đáng kể mà vẫn giữ clean architecture và chất lượng code.</span></li>
+            <li><span data-lang-en>Adopted Cursor / Copilot for boilerplate, TypeScript types from API contracts, Redux slices and multi-locale i18n sets across the three products; payment, token and video-pipeline code kept hand-written.</span><span data-lang-vi>Dùng Cursor / Copilot cho boilerplate, type TypeScript từ API contract, Redux slice và bộ i18n đa ngôn ngữ trên cả ba sản phẩm; code thanh toán, token và pipeline video giữ viết tay.</span></li>
           </ul>
         </div>
 
@@ -662,9 +712,8 @@
             <span class="stack-badge">Shopify</span>
           </div>
           <ul class="exp-bullets">
-            <li><span data-lang-en>Built <strong>SAFA Booking</strong> — three-sided performer booking marketplace (user app, performer app, admin dashboard) with Stripe escrow, real-time chat, calendar conflict detection. 1.8k+ requests/month, 44% booking conversion, 4.7★ rating.</span><span data-lang-vi>Xây <strong>SAFA Booking</strong> — marketplace đặt lịch nghệ sĩ ba bên (app khách, app nghệ sĩ, admin dashboard) với Stripe escrow, chat real-time, tự phát hiện xung đột lịch. 1.8k+ request/tháng, 44% tỉ lệ chuyển đổi booking, đánh giá 4.7★.</span></li>
-            <li><span data-lang-en>Delivered WordPress, Shopify and custom landing pages for beauty-industry clients; built CRM and booking web app tailored to salon workflows.</span><span data-lang-vi>Bàn giao WordPress, Shopify và landing page tuỳ biến cho khách ngành làm đẹp; xây CRM và web app đặt lịch theo quy trình salon.</span></li>
-            <li><span data-lang-en>Managed host and domain administration; led responsive design across all client deliverables.</span><span data-lang-vi>Quản trị host và domain; phụ trách thiết kế responsive cho toàn bộ sản phẩm bàn giao.</span></li>
+            <li><span data-lang-en>Built <strong>SAFA Booking</strong> — three-sided performer booking marketplace: Flutter performer app, user booking app, Vue admin dashboard on a Laravel API; Stripe escrow, Firebase real-time chat, server-side calendar conflict detection.</span><span data-lang-vi>Xây <strong>SAFA Booking</strong> — marketplace đặt lịch nghệ sĩ ba bên: app nghệ sĩ Flutter, app đặt lịch cho khách, admin dashboard Vue trên Laravel API; Stripe escrow, chat real-time Firebase, kiểm tra xung đột lịch phía server.</span></li>
+            <li><span data-lang-en>Delivered WordPress, Shopify and custom landing pages for beauty-industry clients; built a salon CRM and booking web app; managed hosting and domains.</span><span data-lang-vi>Bàn giao WordPress, Shopify và landing page cho khách ngành làm đẹp; xây CRM và web app đặt lịch cho salon; quản trị host và domain.</span></li>
           </ul>
         </div>
 
@@ -681,10 +730,19 @@
             <span class="stack-badge">JavaScript</span>
           </div>
           <ul class="exp-bullets">
-            <li><span data-lang-en>Database administration and website design for internal business systems.</span><span data-lang-vi>Quản trị cơ sở dữ liệu và thiết kế website cho hệ thống nghiệp vụ nội bộ.</span></li>
-            <li><span data-lang-en>Built and maintained ad-serving platform logic; developed responsive landing pages.</span><span data-lang-vi>Xây và bảo trì logic nền tảng ad-serving; phát triển landing page responsive.</span></li>
+            <li><span data-lang-en>Database administration, internal business websites, ad-serving platform logic and responsive landing pages.</span><span data-lang-vi>Quản trị cơ sở dữ liệu, website nghiệp vụ nội bộ, logic nền tảng ad-serving và landing page responsive.</span></li>
           </ul>
         </div>
+      </div>
+
+      <!-- AI-ASSISTED ENGINEERING -->
+      <div class="cv-section">
+        <div class="section-label"><span data-lang-en>AI-assisted engineering</span><span data-lang-vi>AI-assisted engineering</span></div>
+        <ul class="exp-bullets">
+          <li><span data-lang-en><strong>Context first:</strong> architecture rules are written down (CLAUDE.md / .cursorrules) so Claude Code and Cursor generate code in the right layer, with the right names and templates — the same standard the team reads.</span><span data-lang-vi><strong>Context trước:</strong> luật kiến trúc được viết thành CLAUDE.md / .cursorrules để Claude Code và Cursor sinh code đúng layer, đúng tên, đúng mẫu — cùng một chuẩn mà team đọc.</span></li>
+          <li><span data-lang-en><strong>Spec → scaffold → review:</strong> I write the spec per feature or domain, the agent scaffolds or ports against a template, every wave ships as a pull request I read line by line. AI drafts tests; I own the assertions.</span><span data-lang-vi><strong>Spec → scaffold → review:</strong> tôi viết spec theo feature/domain, agent scaffold hoặc port theo mẫu, mỗi đợt là một pull request tôi đọc từng dòng. AI draft test; tôi chịu trách nhiệm assertion.</span></li>
+          <li><span data-lang-en><strong>Clear boundaries:</strong> money flow, stock, locks, printer drivers and hardware are hand-written, tested on real devices and 100% human-reviewed. AI is a strong junior, not a decision maker.</span><span data-lang-vi><strong>Ranh giới rõ:</strong> luồng tiền, tồn kho, lock, driver máy in và phần cứng viết tay, test trên thiết bị thật, review tay 100%. AI là một junior giỏi, không phải người ra quyết định.</span></li>
+        </ul>
       </div>
 
       <!-- SELECTED PROJECTS -->
@@ -693,7 +751,7 @@
 
         <div class="proj-item">
           <div class="proj-title"><span data-lang-en>Order POS — Restaurant POS/ERP Client (Flutter)</span><span data-lang-vi>Order POS — Ứng dụng POS/ERP nhà hàng (Flutter)</span></div>
-          <div class="proj-sub"><span data-lang-en>Full-stack &amp; mobile · Nasys · 2026</span><span data-lang-vi>Full-stack &amp; mobile · Nasys · 2026</span></div>
+          <div class="proj-sub"><span data-lang-en>Lead Flutter developer · Nasys · 2026</span><span data-lang-vi>Lead Flutter developer · Nasys · 2026</span></div>
           <div class="proj-stack">
             <span class="stack-badge">Flutter</span>
             <span class="stack-badge">Dart</span>
@@ -702,11 +760,12 @@
             <span class="stack-badge">ESC/POS</span>
             <span class="stack-badge">Socket.IO</span>
           </div>
-          <div class="proj-desc"><span data-lang-en>Multi-tenant, multi-branch POS on Android, iOS and web: ordering, payments, kitchen tickets, inventory, HRM and tax. Clean Architecture + feature-first across 24 feature and 15 shared modules; hand-rolled ESC/POS printing across 5 hardware drivers; deep POS peripheral integration.</span><span data-lang-vi>POS đa tenant, đa chi nhánh trên Android, iOS và web: gọi món, thanh toán, phiếu bếp, kho, HRM và thuế. Clean Architecture + feature-first với 24 feature module và 15 shared module; hệ thống in ESC/POS tự viết trên 5 driver phần cứng; tích hợp sâu thiết bị ngoại vi POS.</span></div>
+          <div class="proj-desc"><span data-lang-en>Multi-tenant, multi-branch POS on Android, iOS and web: ordering, payments, kitchen tickets, inventory, HRM, tax. Clean Architecture + feature-first, hand-rolled ESC/POS printing, deep peripheral integration.</span><span data-lang-vi>POS đa tenant, đa chi nhánh trên Android, iOS và web: gọi món, thanh toán, phiếu bếp, kho, HRM, thuế. Clean Architecture + feature-first, hệ in ESC/POS tự viết, tích hợp sâu thiết bị ngoại vi.</span></div>
           <div class="proj-impact">
             <span class="impact-chip">~777K lines Dart</span>
+            <span class="impact-chip">24 + 15 modules</span>
             <span class="impact-chip">440 use cases</span>
-            <span class="impact-chip">611 endpoints</span>
+            <span class="impact-chip">5 printer drivers</span>
             <span class="impact-chip">325 test files</span>
             <span class="impact-chip">5 locales</span>
           </div>
@@ -733,81 +792,24 @@
         </div>
 
         <div class="proj-item">
-          <div class="proj-title"><span data-lang-en>Storypop — Shopify Video Commerce SaaS</span><span data-lang-vi>Storypop — SaaS video commerce cho Shopify</span></div>
-          <div class="proj-sub"><span data-lang-en>End-to-end Shopify app · 2025</span><span data-lang-vi>Ứng dụng Shopify end-to-end · 2025</span></div>
+          <div class="proj-title"><span data-lang-en>SAFA Booking — Performer Marketplace (Flutter + Laravel)</span><span data-lang-vi>SAFA Booking — Nền tảng đặt lịch nghệ sĩ (Flutter + Laravel)</span></div>
+          <div class="proj-sub"><span data-lang-en>Full-stack · Eye Design Sydney · 2024</span><span data-lang-vi>Full-stack · Eye Design Sydney · 2024</span></div>
           <div class="proj-stack">
-            <span class="stack-badge">React</span>
-            <span class="stack-badge">Node.js</span>
-            <span class="stack-badge">Shopify API</span>
-            <span class="stack-badge">Stripe</span>
-            <span class="stack-badge">Socket.IO</span>
-            <span class="stack-badge">i18next</span>
-          </div>
-          <div class="proj-desc"><span data-lang-en>Reel library (TikTok/Instagram import + manual upload), 4-type widget builder with embed SDK, analytics dashboard (impressions → orders funnel), Stripe subscription billing. i18n: EN/DE/FR/JA.</span><span data-lang-vi>Thư viện reel (import TikTok/Instagram + upload thủ công), widget builder 4 loại kèm embed SDK, dashboard analytics (funnel impression → đơn hàng), Stripe subscription. i18n: EN/DE/FR/JA.</span></div>
-          <div class="proj-impact">
-            <span class="impact-chip">4 widget types</span>
-            <span class="impact-chip">4 locales</span>
-            <span class="impact-chip">Stripe subscriptions</span>
-            <span class="impact-chip">Realtime pipeline</span>
-          </div>
-        </div>
-
-        <div class="proj-item">
-          <div class="proj-title"><span data-lang-en>Unobiz Business Portal — B2B Distributor Management</span><span data-lang-vi>Unobiz Business Portal — Quản trị nhà phân phối B2B</span></div>
-          <div class="proj-sub"><span data-lang-en>Frontend lead · 2025</span><span data-lang-vi>Frontend lead · 2025</span></div>
-          <div class="proj-stack">
-            <span class="stack-badge">React</span>
-            <span class="stack-badge">TypeScript</span>
-            <span class="stack-badge">Redux Toolkit</span>
-            <span class="stack-badge">Socket.IO</span>
-            <span class="stack-badge">Tailwind</span>
-            <span class="stack-badge">i18next</span>
-          </div>
-          <div class="proj-desc"><span data-lang-en>10-module portal (Products, RFQ, Inventory, Sale Orders, Employees, Customers, Receivable, Payment, Onboarding). RBAC decoupled from UI via usePermission hook. Real-time order status, bulk Excel import, EN/VI i18n.</span><span data-lang-vi>Portal 10 module (Sản phẩm, RFQ, Kho, Đơn bán, Nhân viên, Khách hàng, Công nợ, Thanh toán, Onboarding). RBAC tách khỏi UI qua hook usePermission. Trạng thái đơn real-time, import Excel hàng loạt, i18n EN/VI.</span></div>
-          <div class="proj-impact">
-            <span class="impact-chip">10 modules</span>
-            <span class="impact-chip">RBAC per module/action</span>
-            <span class="impact-chip">Real-time socket</span>
-          </div>
-        </div>
-
-        <div class="proj-item">
-          <div class="proj-title"><span data-lang-en>SAFA Booking — Performer Marketplace</span><span data-lang-vi>SAFA Booking — Nền tảng đặt lịch nghệ sĩ</span></div>
-          <div class="proj-sub"><span data-lang-en>Full-stack architecture · 2024</span><span data-lang-vi>Kiến trúc full-stack · 2024</span></div>
-          <div class="proj-stack">
+            <span class="stack-badge">Flutter</span>
             <span class="stack-badge">Laravel</span>
             <span class="stack-badge">Vue.js</span>
-            <span class="stack-badge">Flutter</span>
             <span class="stack-badge">MySQL</span>
             <span class="stack-badge">Stripe</span>
             <span class="stack-badge">Firebase</span>
           </div>
-          <div class="proj-desc"><span data-lang-en>Three-sided ecosystem: user booking app, performer app, admin dashboard. Stripe escrow, real-time chat, automatic calendar conflict detection.</span><span data-lang-vi>Hệ sinh thái ba bên: app đặt lịch cho khách, app cho nghệ sĩ, admin dashboard. Stripe escrow, chat real-time, tự động phát hiện xung đột lịch.</span></div>
+          <div class="proj-desc"><span data-lang-en>Three-sided ecosystem: Flutter performer app, user booking app, Vue admin dashboard. Stripe escrow holds funds until the gig happens; Firebase real-time chat; server-side calendar conflict detection so a performer can never be double-booked.</span><span data-lang-vi>Hệ sinh thái ba bên: app nghệ sĩ Flutter, app đặt lịch cho khách, admin dashboard Vue. Stripe escrow giữ tiền đến khi show diễn ra; chat real-time Firebase; kiểm tra xung đột lịch phía server để nghệ sĩ không bao giờ bị trùng show.</span></div>
           <div class="proj-impact">
-            <span class="impact-chip">1.8k+ req/month</span>
-            <span class="impact-chip">44% conversion</span>
-            <span class="impact-chip">4.7★ avg rating</span>
+            <span class="impact-chip">3 apps</span>
+            <span class="impact-chip">Stripe escrow</span>
+            <span class="impact-chip">Realtime chat</span>
           </div>
         </div>
 
-        <div class="proj-item">
-          <div class="proj-title"><span data-lang-en>MeinPointOf.Sale — Print & POS eCommerce</span><span data-lang-vi>MeinPointOf.Sale — eCommerce ngành in ấn &amp; POS</span></div>
-          <div class="proj-sub"><span data-lang-en>Full-stack · 2025</span><span data-lang-vi>Full-stack · 2025</span></div>
-          <div class="proj-stack">
-            <span class="stack-badge">Laravel</span>
-            <span class="stack-badge">Vue.js</span>
-            <span class="stack-badge">WebGL</span>
-            <span class="stack-badge">Stripe</span>
-            <span class="stack-badge">PayPal</span>
-            <span class="stack-badge">Sofort</span>
-          </div>
-          <div class="proj-desc"><span data-lang-en>Full eCommerce platform for print/POS displays. Dimension/material/quantity configurator with real-time 3D preview. 10k+ price variants, multi-gateway payments, unified admin panel.</span><span data-lang-vi>Nền tảng eCommerce đầy đủ cho sản phẩm in ấn/POS display. Configurator theo kích thước/vật liệu/số lượng với preview 3D real-time. 10k+ biến thể giá, đa cổng thanh toán, admin panel hợp nhất.</span></div>
-          <div class="proj-impact">
-            <span class="impact-chip">10k+ price variants</span>
-            <span class="impact-chip">3D WebGL preview</span>
-            <span class="impact-chip">3 payment gateways</span>
-          </div>
-        </div>
       </div>
 
     </main>
@@ -818,8 +820,8 @@
 <script>
   (function () {
     var TITLES = {
-      en: "Trần Ngọc Minh Thông — Full-stack & Mobile Developer CV",
-      vi: "Trần Ngọc Minh Thông — CV Lập trình viên Full-stack & Mobile"
+      en: "Trần Ngọc Minh Thông — Flutter Mobile Developer CV",
+      vi: "Trần Ngọc Minh Thông — CV Lập trình viên Flutter Mobile"
     };
     var buttons = document.querySelectorAll("[data-set-lang]");
 

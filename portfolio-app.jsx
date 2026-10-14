@@ -5,18 +5,19 @@ const { useState, useEffect, useRef, useCallback } = React;
 const PROFILE = {
   name: "Trần Ngọc Minh Thông",
   nameInitial: "T",
-  role: "Full-stack Web Developer",
-  roleEn: "Building product end-to-end",
+  role: "Flutter Mobile & Full-stack Developer",
+  roleEn: "Flutter Mobile & Full-stack Developer",
   location: "275 Quang Trung, Gò Vấp, HCM",
   locationShort: "Hồ Chí Minh, Việt Nam",
   email: "tranthng207@icloud.com",
   phone: "0394 097 349",
   github: "https://github.com/TranNgocMinhThong",
   linkedin: "https://www.linkedin.com/in/thong-tran-572488319/",
-  bio_vi: "Tôi là Full-stack Developer với hơn 4 năm kinh nghiệm web (Laravel, Vue, React, Node). 6 tháng gần đây tôi chuyển sang mảng mobile tại Nasys và đang xây hệ POS/ERP cho ngành F&B — Flutter app ~777K dòng cùng Laravel modular monolith 19 domain, own cả hai đầu.",
-  bio_en: "Full-stack developer with 4+ years on the web (Laravel, Vue, React, Node). Over the last 6 months I moved into mobile at Nasys, building an F&B POS/ERP end-to-end — a ~777K-line Flutter client alongside a 19-domain Laravel modular monolith.",
+  bio_vi: "Tôi là Flutter Mobile Developer với nền tảng full-stack 4+ năm (Laravel, Vue, React, Node). Từ đầu 2026 tại Nasys, tôi xây POS/ERP cho ngành F&B trên Flutter — ứng dụng ~777K dòng Dart, Clean Architecture, hệ in ESC/POS và tích hợp phần cứng tự viết — đồng thời own luôn Laravel backend 19 domain phục vụ nó. Làm việc hằng ngày với AI agent (Claude Code, Cursor) theo quy trình: AI draft, tôi thiết kế và review.",
+  bio_en: "Flutter mobile developer with a 4+ year full-stack background (Laravel, Vue, React, Node). Since early 2026 at Nasys I've been building an F&B POS/ERP in Flutter — a ~777K-line Dart app on Clean Architecture with a hand-rolled ESC/POS printing stack and hardware integrations — while also owning the 19-domain Laravel backend behind it. I work daily with AI agents (Claude Code, Cursor): AI drafts, I design and review.",
   years: "4+",
-  shipped: "15+"
+  shipped: "6",
+  companies: "4"
 };
 
 const PROJECTS = [
@@ -27,7 +28,7 @@ const PROJECTS = [
   subtitle: "Ứng dụng POS/ERP cho nhà hàng — Flutter, đa nền tảng",
   subtitleEn: "Restaurant POS/ERP client — Flutter, multi-platform",
   year: "2026",
-  role: "Full-stack & Mobile — Clean Architecture, hệ thống in ESC/POS, tích hợp phần cứng",
+  role: "Flutter Mobile Lead — Clean Architecture, ESC/POS printing stack, hardware integration",
   stack: ["Flutter", "Dart", "Riverpod", "Retrofit", "ESC/POS", "Socket.IO"],
   cover: null,
   accent: "#0f766e",
@@ -43,6 +44,13 @@ const PROJECTS = [
     ["5", "driver máy in / printer drivers"],
     ["325", "test files"],
     ["5", "ngôn ngữ / locales"]],
+
+    ai_vi: "Tài liệu chuẩn kiến trúc 1.236 dòng được viết để vừa là tài liệu cho team, vừa là context cho agent (CLAUDE.md / .cursorrules): quy ước đặt tên, layer nào được import layer nào, mẫu UseCase/Repository/Provider. Nhờ đó Claude Code scaffold được bộ khung data/domain/presentation cho từng feature đúng chuẩn, tôi chỉ tập trung vào business logic, UI và review diff. Phần in ấn và phần cứng (ESC/POS, rasterize tiếng Việt, driver Sunmi/iMin) tôi tự viết và test trên thiết bị thật — AI chỉ dùng để tra cứu spec và sinh test case biên.",
+    ai_en: "The 1,236-line architecture standard was written to serve two readers: the team, and the AI agent (CLAUDE.md / .cursorrules) — naming conventions, allowed layer imports, canonical UseCase/Repository/Provider templates. With that context Claude Code scaffolds the data/domain/presentation skeleton of each feature correctly, so my time goes into business logic, UI and reviewing diffs. The printing and hardware layer (ESC/POS, Vietnamese rasterizer, Sunmi/iMin drivers) is hand-written and tested on real devices — AI was used there only to look up specs and draft edge-case tests.",
+    decisions: [
+    ["Scale đồng tỉ lệ thay vì responsive reflow", "Uniform canvas scaling instead of responsive reflow", "POS cần bố cục cố định để thu ngân thao tác theo trí nhớ cơ. Dựng ở canvas chuẩn rồi scale giữ nguyên vị trí mọi nút trên tablet, Sunmi và web.", "A POS needs a fixed layout so cashiers work from muscle memory. Building at a reference canvas and scaling uniformly keeps every button in the same place on tablets, Sunmi units and web."],
+    ["Print queue FIFO theo từng máy in", "Per-printer FIFO print queue", "Một máy in bếp kẹt giấy không được chặn máy in hoá đơn. Mỗi máy có queue riêng chạy song song, job lỗi được retry/bỏ mà không deadlock các máy khác.", "A jammed kitchen printer must never block the receipt printer. Each printer gets its own queue running in parallel; a failed job retries or drops without deadlocking the rest."],
+    ["Cô lập CartState khỏi cây widget", "Isolate CartState from the widget tree", "Mỗi lần thêm món từng rebuild cả màn hình 100+ item. Tách CartState sang ChangeNotifier/ValueNotifier + RepaintBoundary nên chỉ phần giỏ hàng vẽ lại.", "Every add-to-cart used to rebuild a screen of 100+ items. Moving CartState behind ChangeNotifier/ValueNotifier + RepaintBoundary means only the cart repaints."]],
 
     shots: []
   }
@@ -71,6 +79,13 @@ const PROJECTS = [
     ["608", "permission keys"],
     ["935", "tests"]],
 
+    ai_vi: "Migration theo từng đợt (strangler): tôi viết spec cho từng domain — danh sách Action, DTO, policy, ràng buộc không sửa code cũ — rồi để Claude Code port controller cũ sang UseCase + Resource + test theo mẫu đã duyệt, mỗi đợt một pull request để review. AI cũng dùng để audit codebase cũ: quét ra `SysParameter::all()` copy-paste ở 22 controller và 3 bản `worktable()` bị fork, nhưng việc phát hiện 2 bản tính sai ca qua đêm và quyết định hợp nhất là của tôi. Test suite tăng từ 251 lên 935 nhờ AI sinh test draft từ spec, tôi kiểm tra lại từng assertion. Luồng tiền và tồn kho (lock, mutex) được viết và review tay 100%.",
+    ai_en: "The migration ran in strangler waves: for each domain I wrote the spec — Actions, DTOs, policies, the hard no-change rule on legacy code — then had Claude Code port the old controllers into UseCases + Resources + tests against an approved template, one pull request per wave for review. AI also helped audit the legacy codebase, surfacing `SysParameter::all()` copy-pasted across 22 controllers and three forked `worktable()` implementations — but spotting that two of them computed overnight shifts wrong, and deciding how to merge them, was my call. The test suite grew from 251 to 935 with AI drafting tests from the spec and me verifying every assertion. Money-flow and stock code (locks, mutexes) was written and reviewed by hand, 100%.",
+    decisions: [
+    ["One Action, N surfaces", "One Action, N surfaces", "Thay vì 5 controller cho 5 vai trò, một UseCase phục vụ admin/thu ngân/phục vụ/bếp/core; surface chỉ khác prefix, middleware và policy. Sửa nghiệp vụ một chỗ.", "Instead of five controllers for five roles, one UseCase serves admin/cashier/staff/kitchen/core; surfaces differ only in prefix, middleware and policy. Business changes happen once."],
+    ["Strangler với ràng buộc không sửa code cũ", "Strangler under a hard no-change rule", "Hệ cũ đang chạy production cho nhiều tenant. API v2 xây song song, không đụng route/schema cũ, client chuyển dần từng domain — có thể rollback bất kỳ lúc nào.", "The legacy system was live for many tenants. API v2 was built alongside it, never touching old routes or schema, so clients migrated domain by domain and could roll back at any time."],
+    ["Single write-point cho tiền và tồn kho", "Single write-point for money and stock", "Mọi thay đổi quỹ/kho đi qua đúng một Action, bảo vệ bằng claim mutex, lockForUpdate và Cache::lock — chống double-apply khi nhiều thu ngân thao tác cùng lúc.", "Every cash-fund or stock mutation goes through exactly one Action, guarded by a claim mutex, lockForUpdate and Cache::lock — no double-apply when several cashiers act at once."]],
+
     shots: []
   }
 },
@@ -81,8 +96,8 @@ const PROJECTS = [
   subtitle: "Nền tảng đặt lịch nghệ sĩ biểu diễn",
   subtitleEn: "Performer booking marketplace & admin portal",
   year: "2024",
-  role: "Full-stack — Architecture, API, Mobile UI",
-  stack: ["Laravel", "Vue.js", "Flutter", "MySQL", "Stripe", "Firebase"],
+  role: "Full-stack — Flutter performer app, Laravel API, admin dashboard",
+  stack: ["Flutter", "Laravel", "Vue.js", "MySQL", "Stripe", "Firebase"],
   cover: null,
   accent: "#0369a1",
   tagline: "Kết nối nghệ sĩ và khách hàng. Booking, payment, quản lý sự kiện end-to-end.",
@@ -92,9 +107,16 @@ const PROJECTS = [
     solution_vi: "Một ecosystem 3-bên: User App (khách đặt lịch), Performer App (nghệ sĩ nhận show), Admin Dashboard (quản trị, doanh thu, dispute). Stripe escrow, real-time chat, lịch xung đột tự động.",
     solution_en: "A three-sided ecosystem: User app for booking, Performer app for gigs, Admin dashboard for operations. Stripe escrow, real-time chat, automatic conflict-detection on calendars.",
     impact: [
-    ["1.8k+", "requests/tháng"],
-    ["44%", "booking conversion"],
-    ["4.7★", "rating trung bình"]],
+    ["3", "ứng dụng / apps"],
+    ["Stripe", "escrow payment"],
+    ["Realtime", "chat & calendar"],
+    ["Flutter", "performer app"]],
+
+    ai_vi: "Dự án đầu tiên tôi dùng Copilot trong editor cho boilerplate Laravel (migration, resource, validation) và màn hình Flutter lặp lại. Logic xung đột lịch và escrow viết tay.",
+    ai_en: "First project where I used Copilot in-editor for Laravel boilerplate (migrations, resources, validation) and repetitive Flutter screens. Calendar-conflict and escrow logic were written by hand.",
+    decisions: [
+    ["Escrow thay vì thanh toán trực tiếp", "Escrow instead of direct payment", "Khách trả qua Stripe, tiền giữ lại đến khi show diễn ra — giải quyết nỗi lo bị bùng của cả hai bên.", "Clients pay via Stripe and funds are held until the gig happens — removing the no-show risk for both sides."],
+    ["Lịch là nguồn sự thật duy nhất", "Calendar as single source of truth", "Mọi booking phải qua kiểm tra xung đột server-side trước khi xác nhận, không để nghệ sĩ nhận hai show cùng giờ.", "Every booking passes a server-side conflict check before confirmation, so a performer can never be double-booked."]],
 
     shots: [
     { src: "assets/safa-welcome-1.png", label: "Onboarding — Make it happen", tall: true },
@@ -128,6 +150,12 @@ const PROJECTS = [
     ["3", "cổng thanh toán / gateways"],
     ["1", "admin panel duy nhất"]],
 
+    ai_vi: "Cursor dùng để sinh CRUD admin và form validation theo mẫu; công thức giá theo kích thước/vật liệu và luồng thanh toán 3 cổng được viết và test tay.",
+    ai_en: "Cursor generated the admin CRUD and form validation from a template; the dimension/material pricing engine and the three-gateway payment flow were written and tested by hand.",
+    decisions: [
+    ["Tính giá theo rule thay vì lưu biến thể", "Rule-based pricing instead of stored variants", "10k+ tổ hợp không thể nhập tay. Giá tính từ bảng rule (kích thước × vật liệu × số lượng), cache theo tổ hợp.", "10k+ combinations can't be keyed in. Price is computed from a rule table (size × material × quantity) and cached per combination."],
+    ["Cổng thanh toán sau một interface", "Gateways behind one interface", "Stripe, PayPal, Sofort cùng implement một PaymentGateway contract — thêm cổng mới không chạm vào checkout.", "Stripe, PayPal and Sofort implement one PaymentGateway contract — adding a gateway never touches checkout."]],
+
     shots: [
     { src: "assets/mpos-home.png", label: "Homepage — danh mục POS & Verpackung", tall: false },
     { src: "assets/mpos-configurator.png", label: "Configurator — kích thước, vật liệu, 3D preview", tall: false },
@@ -158,6 +186,12 @@ const PROJECTS = [
     ["EN / VI", "i18n đầy đủ"],
     ["real-time", "order status qua socket"]],
 
+    ai_vi: "Cursor + Copilot sinh type TypeScript từ API contract, Redux slice và bộ key i18n EN/VI cho 10 module. Hook usePermission, luồng Sale Order và import Excel do tôi thiết kế.",
+    ai_en: "Cursor + Copilot generated TypeScript types from the API contract, Redux slices and the EN/VI i18n key sets across 10 modules. The usePermission hook, Sale Order flow and Excel import were my design.",
+    decisions: [
+    ["RBAC tách khỏi UI", "RBAC decoupled from the UI", "Một hook usePermission(module, action) thay vì if/else rải khắp component — thêm vai trò mới không cần sửa màn hình.", "One usePermission(module, action) hook instead of if/else scattered through components — new roles need no screen changes."],
+    ["Import Excel kèm file lỗi", "Excel import with an error file", "Hàng nghìn dòng sản phẩm: validate từng dòng, trả về file chỉ chứa dòng lỗi và lý do để kế toán sửa rồi nộp lại.", "Thousands of product rows: validate each one and hand back a file with only the failing rows and reasons, so accounting fixes and resubmits."]],
+
     shots: [
     { src: "assets/unobiz-signin.png", label: "Sign In — branded portal entry", tall: false },
     { src: "assets/unobiz-sidebar.png", label: "Sidebar nav + RBAC — module bị disable khi không có quyền", tall: false }]
@@ -187,6 +221,12 @@ const PROJECTS = [
     ["TikTok + IG", "video import"],
     ["Stripe", "subscription billing"]],
 
+    ai_vi: "Cursor dùng để dựng nhanh UI dashboard, bộ i18n 4 ngôn ngữ và tài liệu embed SDK. Pipeline xử lý video, token cross-site và Stripe webhook viết tay vì liên quan bảo mật và tiền.",
+    ai_en: "Cursor sped up the dashboard UI, the 4-locale i18n set and the embed SDK docs. The video pipeline, cross-site token and Stripe webhooks were hand-written since they touch security and money.",
+    decisions: [
+    ["Embed SDK qua token thay vì iframe", "Token-based embed SDK instead of iframe", "Widget phải chạy trên storefront của merchant với style riêng; SDK + token public cho phép nhúng cross-site mà vẫn giới hạn domain.", "Widgets run on the merchant's storefront with its own styling; an SDK + public token allows cross-site embedding while still restricting by domain."],
+    ["Xử lý video bất đồng bộ qua socket", "Async video processing over sockets", "Import từ TikTok/Instagram có thể mất phút; đẩy vào queue và báo tiến độ real-time thay vì chặn request.", "TikTok/Instagram imports can take minutes; they go into a queue with real-time progress instead of blocking the request."]],
+
     shots: [
     { src: "assets/storypop-home.png", label: "Home — analytics overview, funnel chart, donation history", tall: false },
     { src: "assets/storypop-videos.png", label: "Videos Library — TikTok/Instagram/Manual sources, retry upload", tall: false },
@@ -202,17 +242,17 @@ const PROJECTS = [
 const EXPERIENCE = [
 {
   years: "02/2026 — Present",
-  role_vi: "Full-stack & Mobile Developer", role_en: "Full-stack & Mobile Developer",
+  role_vi: "Flutter Mobile & Full-stack Developer", role_en: "Flutter Mobile & Full-stack Developer",
   company: "Nasys",
-  note_vi: "Xây hệ POS/ERP cho ngành F&B: Flutter client (Clean Architecture, Riverpod, ESC/POS) và Laravel modular monolith 19 domain. Chuyển sang Flutter từ đầu và ship production trong 6 tháng.",
-  note_en: "Building an F&B POS/ERP: a Flutter client (Clean Architecture, Riverpod, ESC/POS) and a 19-domain Laravel modular monolith. Picked up Flutter from scratch and shipped to production within 6 months."
+  note_vi: "Xây hệ POS/ERP ngành F&B: Flutter client ~777K dòng (Clean Architecture, Riverpod, ESC/POS, phần cứng) và Laravel modular monolith 19 domain. Học Flutter từ đầu, ship production trong 6 tháng. Quy trình AI-assisted với Claude Code: chuẩn kiến trúc làm context cho agent, AI scaffold, tôi review.",
+  note_en: "Building an F&B POS/ERP: a ~777K-line Flutter client (Clean Architecture, Riverpod, ESC/POS, hardware) and a 19-domain Laravel modular monolith. Picked up Flutter from scratch and shipped to production within 6 months. AI-assisted workflow with Claude Code: the architecture standard doubles as agent context, AI scaffolds, I review."
 },
 {
   years: "01/2025 — 01/2026",
   role_vi: "Full-stack Web Developer", role_en: "Full-stack Web Developer",
   company: "Appif AI (Contract)",
-  note_vi: "Ship Storypop, Unobiz Portal và MeinPointOf — React, Vue, Laravel, Node.js, WebGL.",
-  note_en: "Shipped Storypop, Unobiz Portal and MeinPointOf — React, Vue, Laravel, Node.js, WebGL."
+  note_vi: "Ship Storypop, Unobiz Portal và MeinPointOf — React, Vue, Laravel, Node.js, WebGL. Dùng Cursor/Copilot cho boilerplate, type và i18n.",
+  note_en: "Shipped Storypop, Unobiz Portal and MeinPointOf — React, Vue, Laravel, Node.js, WebGL. Cursor/Copilot for boilerplate, types and i18n."
 },
 {
   years: "04/2023 — 02/2025",
@@ -238,32 +278,53 @@ const EXPERIENCE = [
 
 
 const SKILLS = {
-  Backend: ["PHP", "Laravel", "Node.js", "REST API", "MySQL", "DDD / Modular monolith", "Multi-tenant"],
-  Mobile: ["Flutter", "Dart", "Riverpod", "Clean Architecture", "Retrofit / Dio", "ESC/POS printing"],
-  Frontend: ["Vue.js", "React.js", "TypeScript", "HTML / CSS", "WebGL", "Responsive"],
-  "Realtime & Integrations": ["Socket.IO", "Firebase / FCM", "Stripe / VNPay", "Webhooks", "i18n"],
-  CMS: ["WordPress", "Shopify", "Landing pages"],
-  "Tools & Ops": ["Git", "SVN", "PHPUnit", "Host / Domain", "Database admin"],
+  Mobile: ["Flutter", "Dart", "Riverpod (code-gen)", "Clean Architecture", "Retrofit / Dio", "AutoRoute", "ESC/POS printing", "Hardware: BLE / USB / serial", "Socket.IO / FCM", "flutter_test"],
+  "AI-assisted engineering": ["Claude Code", "Cursor / Copilot", "Agent context docs (CLAUDE.md / .cursorrules)", "Spec-driven prompting", "AI code review", "AI test generation"],
+  Backend: ["PHP", "Laravel", "Node.js", "REST API", "MySQL", "DDD / Modular monolith", "Multi-tenant", "PHPUnit"],
+  Frontend: ["React.js", "Vue.js", "TypeScript", "Redux Toolkit", "Tailwind", "WebGL / Three.js"],
+  "Realtime & Integrations": ["Socket.IO", "Firebase / FCM", "Stripe / VNPay / VietQR", "Webhooks", "i18n", "Shopify / WordPress"],
+  "Tools & Ops": ["Git", "CI (GitHub Actions)", "Host / Domain", "Database admin", "Figma"],
   Soft: ["Design Thinking", "Problem-solving", "Fast learner", "Communication"]
 };
 
-const WRITING = [
-{ date: "Mar 2025", title: "Xây 3D product viewer với Three.js + Vue.js", titleEn: "Building a 3D product viewer with Three.js and Vue", read: "9 min" },
-{ date: "Jan 2025", title: "React component có thể nhúng — đóng gói thư viện đúng cách", titleEn: "Embeddable React components — packaging a library right", read: "7 min" },
-{ date: "Nov 2024", title: "Booking WebApp với Laravel: xung đột lịch và escrow payment", titleEn: "Booking webapps in Laravel: conflict-detection and escrow", read: "8 min" }];
+const AI_WORKFLOW = {
+  tools: [
+  { name: "Claude Code", use_vi: "Agent CLI cho refactor lớn, migration theo đợt, sinh test và tài liệu", use_en: "Agentic CLI for large refactors, wave migrations, tests and docs" },
+  { name: "Cursor / Copilot", use_vi: "Autocomplete và chat trong editor cho boilerplate, type, i18n", use_en: "In-editor autocomplete and chat for boilerplate, types, i18n" },
+  { name: "Claude", use_vi: "Tra cứu spec (ESC/POS, Stripe, Shopify), rubber-duck khi debug", use_en: "Spec lookup (ESC/POS, Stripe, Shopify), rubber-duck debugging" }],
 
-
-const TESTIMONIALS = [
-{
-  vi: "Thông nắm cả product lẫn kỹ thuật, đẩy được những quyết định khó. Chúng tôi launch sớm hơn kế hoạch.",
-  en: "Thong owns both product and engineering decisions, including the hard ones. We launched ahead of schedule.",
-  author: "Linh T.", role: "Founder, SAFA Music"
-},
-{
-  vi: "Code sạch, responsive tốt, ship đúng deadline. Hiếm.",
-  en: "Clean code, responsive, ships on time. A rare combo.",
-  author: "Marcus K.", role: "Lead, Eye Design Sydney"
-}];
+  principles: [
+  {
+    title_vi: "Context trước, prompt sau",
+    title_en: "Context first, prompt second",
+    body_vi: "Luật kiến trúc được viết thành tài liệu (1.236 dòng ở Order POS) và dùng làm CLAUDE.md / .cursorrules. Agent đọc cùng một chuẩn với team, nên code sinh ra đúng layer, đúng tên, đúng mẫu.",
+    body_en: "Architecture rules live in a written standard (1,236 lines for Order POS) that doubles as CLAUDE.md / .cursorrules. The agent reads the same standard as the team, so generated code lands in the right layer with the right names and patterns."
+  },
+  {
+    title_vi: "Spec → scaffold → review",
+    title_en: "Spec → scaffold → review",
+    body_vi: "Tôi viết spec cho từng feature/domain (Action, DTO, policy, ràng buộc). Agent scaffold data/domain/presentation hoặc port controller cũ theo mẫu. Mỗi đợt là một pull request, tôi đọc từng diff trước khi merge.",
+    body_en: "I write the spec per feature/domain (Actions, DTOs, policies, constraints). The agent scaffolds data/domain/presentation or ports legacy controllers against a template. Each wave is a pull request and I read every diff before merging."
+  },
+  {
+    title_vi: "AI audit, người quyết định",
+    title_en: "AI audits, humans decide",
+    body_vi: "Dùng agent quét codebase cũ để tìm trùng lặp và fork — SysParameter::all() ở 22 controller, 3 bản worktable(). Phát hiện 2 bản tính sai ca qua đêm và chọn cách hợp nhất là việc của tôi.",
+    body_en: "Agents sweep the legacy codebase for duplication and forks — SysParameter::all() in 22 controllers, three worktable() copies. Spotting that two of them computed overnight shifts wrong, and choosing how to merge, was mine."
+  },
+  {
+    title_vi: "Test draft bằng AI, assertion bằng tay",
+    title_en: "AI drafts tests, I own the assertions",
+    body_vi: "OrderTable đi từ 251 lên 935 test: AI sinh test từ spec, tôi kiểm từng assertion và thêm case biên cho tiền, kho, ca làm việc.",
+    body_en: "OrderTable went from 251 to 935 tests: AI drafts from the spec, I verify every assertion and add edge cases for money, stock and shifts."
+  },
+  {
+    title_vi: "Vùng không uỷ quyền cho AI",
+    title_en: "Zones AI doesn't own",
+    body_vi: "Luồng tiền, tồn kho, lock/mutex, driver máy in và phần cứng: viết tay, test trên thiết bị thật, review tay 100%. AI chỉ tra spec và sinh test biên.",
+    body_en: "Money flow, stock, locks/mutexes, printer drivers and hardware: hand-written, tested on real devices, 100% human-reviewed. AI only looks up specs and drafts edge-case tests."
+  }]
+};
 
 
 /* ---------- HELPERS ---------- */
@@ -301,9 +362,9 @@ function smooth(id) {
 /* ---------- COMPONENTS ---------- */
 function Nav({ dark, setDark, active, lang, setLang }) {
   const items = lang === "en" ? [
-  ["work", "Work"], ["about", "About"], ["experience", "Experience"], ["skills", "Stack"], ["writing", "Writing"], ["contact", "Contact"]] :
+  ["work", "Work"], ["about", "About"], ["experience", "Experience"], ["skills", "Stack"], ["ai", "AI workflow"], ["contact", "Contact"]] :
   [
-  ["work", "Dự án"], ["about", "Giới thiệu"], ["experience", "Kinh nghiệm"], ["skills", "Kỹ năng"], ["writing", "Bài viết"], ["contact", "Liên hệ"]];
+  ["work", "Dự án"], ["about", "Giới thiệu"], ["experience", "Kinh nghiệm"], ["skills", "Kỹ năng"], ["ai", "AI workflow"], ["contact", "Liên hệ"]];
 
   return (
     <nav className="nav">
@@ -343,9 +404,9 @@ function Hero() {
       </div>
       <h1 className="display">
         {lang === "en" ?
-        <>Full-stack developer<br />shipping <em>POS/ERP</em>, booking<br />& <em>eCommerce</em> products.</> :
+        <><em>Flutter</em> mobile developer<br />building <em>POS/ERP</em> for F&B —<br />and the backend behind it.</> :
 
-        <>Lập trình viên <em>full-stack</em><br />xây hệ <em>POS/ERP</em>, booking<br />& sản phẩm <em>eCommerce</em>.</>
+        <>Lập trình viên mobile <em>Flutter</em><br />xây hệ <em>POS/ERP</em> ngành F&B —<br />và cả backend phía sau.</>
         }
       </h1>
       <p className="hero-sub">
@@ -357,8 +418,8 @@ function Hero() {
       </div>
       <div className="hero-stats">
         <div className="stat"><div className="stat-n">{PROFILE.years}</div><div className="stat-l">{t(lang, "năm kinh nghiệm", "years building")}</div></div>
-        <div className="stat"><div className="stat-n">{PROFILE.shipped}</div><div className="stat-l">{t(lang, "sản phẩm đã ship", "shipped products")}</div></div>
-        <div className="stat"><div className="stat-n">3</div><div className="stat-l">{t(lang, "công ty đã làm việc", "companies / clients")}</div></div>
+        <div className="stat"><div className="stat-n">{PROFILE.shipped}</div><div className="stat-l">{t(lang, "sản phẩm production", "production products")}</div></div>
+        <div className="stat"><div className="stat-n">{PROFILE.companies}</div><div className="stat-l">{t(lang, "công ty đã làm việc", "companies / clients")}</div></div>
       </div>
     </header>);
 
@@ -431,7 +492,7 @@ function Work({ onOpen }) {
   const lang = useLang();
   return (
     <section id="work" className="section">
-      <SectionHead n="02" title={t(lang, "Dự án tiêu biểu", "Selected work")} subtitle={t(lang, "Sáu dự án, bốn năm", "Six projects, four years")} filed={t(lang, "POS/ERP, Booking, eCommerce, SaaS", "POS/ERP, Booking, eCommerce, SaaS")} />
+      <SectionHead n="02" title={t(lang, "Dự án tiêu biểu", "Selected work")} subtitle={t(lang, "Sáu dự án, bốn năm — mobile trước, web sau.", "Six projects, four years — mobile first, web behind it.")} filed={t(lang, "Flutter POS/ERP, Booking, eCommerce, SaaS", "Flutter POS/ERP, Booking, eCommerce, SaaS")} />
       <div className="proj-grid">
         {PROJECTS.map((p) => <ProjectCard key={p.id} p={p} onOpen={onOpen} />)}
       </div>
@@ -445,19 +506,21 @@ function Work({ onOpen }) {
 function About() {
   const lang = useLang();
   const principles = lang === "en" ? [
-  "Database first. Schema is destiny.",
-  "A good abstraction is one you don't need to write.",
-  "Test what would keep you up at night if it broke.",
-  "Ship early. Measure. Fix. Repeat."] :
+  "Read the legacy code and measure before touching anything — the 7,388-line controller tells you where the pain is.",
+  "Write the rules down. A standard the team and the AI agent both read beats a review comment nobody remembers.",
+  "Migrate in waves you can roll back. Strangler over rewrite, one domain per pull request.",
+  "Let AI scaffold, never let it decide. I own the spec, the diff review and anything touching money or hardware.",
+  "Test what would keep you up at night: cash flow, stock, overnight shifts, a printer that jams mid-ticket."] :
   [
-  "Database first. Schema quyết định mọi thứ.",
-  "Một abstraction tốt là abstraction bạn không cần viết.",
-  "Test cái mà nếu sai sẽ làm bạn mất ngủ.",
-  "Ship sớm. Đo. Sửa. Lặp lại."];
+  "Đọc code cũ và đo trước khi đụng vào — controller 7.388 dòng tự nói ra chỗ nào đang đau.",
+  "Viết luật ra giấy. Một chuẩn mà cả team lẫn AI agent cùng đọc tốt hơn một comment review chẳng ai nhớ.",
+  "Migrate theo đợt có thể rollback. Strangler thay vì viết lại, mỗi domain một pull request.",
+  "Để AI scaffold, không để AI quyết định. Tôi own spec, review diff và mọi thứ chạm vào tiền hay phần cứng.",
+  "Test cái mà nếu sai sẽ mất ngủ: luồng tiền, tồn kho, ca qua đêm, máy in kẹt giữa phiếu."];
 
   return (
     <section id="about" className="section">
-      <SectionHead n="03" title={t(lang, "Giới thiệu", "About")} subtitle={t(lang, "Vài dòng về tôi và cách tôi làm việc.", "A short note about who I am, and how I work.")} filed={t(lang, "Tiểu sử", "Biography")} />
+      <SectionHead n="03" title={t(lang, "Giới thiệu", "About")} subtitle={t(lang, "Vài dòng về tôi và cách tôi giải quyết vấn đề.", "A short note about who I am, and how I solve problems.")} filed={t(lang, "Tiểu sử", "Biography")} />
       <div className="about-grid">
         <div className="about-portrait">
           <PortraitPlaceholder />
@@ -467,22 +530,23 @@ function About() {
           {lang === "en" ?
           <>
               <p className="drop">
-                <span className="dropcap">I</span>'m Thong — a Saigon-based full-stack developer. I graduated in Information Systems from Industrial University of Ho Chi Minh City (2022) and have since worked across an agency, a design studio, a contract stint at Appif AI, and now Nasys — mostly in the <em>Laravel + Vue + React + Node</em> stack, and for the past six months in <em>Flutter</em> as well.
+                <span className="dropcap">I</span>'m Thong — a Saigon-based <em>Flutter</em> mobile developer with a full-stack past. I graduated in Information Systems from Industrial University of Ho Chi Minh City (2022), spent four years shipping web products in <em>Laravel + Vue + React + Node</em> across an agency, a design studio and a contract at Appif AI, and since early 2026 have been at Nasys building an F&B POS/ERP in Flutter — plus the Laravel backend it talks to.
               </p>
               <p>
-                I believe in <em>clean architecture</em>, in code you can still read six months later. Measure before you optimise. A good product is a <em>shipped</em> product, not a perfect one in your head.
+                I believe in <em>clean architecture</em>, in code you can still read six months later, and in using AI agents the way you'd use a strong junior: give them the standard, give them the spec, read every line they hand back. A good product is a <em>shipped</em> product, not a perfect one in your head.
               </p>
             </> :
 
           <>
               <p className="drop">
-                <span className="dropcap">T</span>ôi là Trần Ngọc Minh Thông, full-stack developer tại Hồ Chí Minh. Tốt nghiệp ngành Hệ thống Thông tin (Đại học Công nghiệp TP.HCM, 2022), tôi đã làm qua agency, design studio, contract cho Appif AI và hiện đang ở Nasys — chủ yếu trong stack <em>Laravel + Vue + React + Node</em>, và 6 tháng gần đây thêm cả <em>Flutter</em>.
+                <span className="dropcap">T</span>ôi là Trần Ngọc Minh Thông, lập trình viên mobile <em>Flutter</em> với nền tảng full-stack, sống tại Hồ Chí Minh. Tốt nghiệp ngành Hệ thống Thông tin (Đại học Công nghiệp TP.HCM, 2022), tôi có bốn năm ship sản phẩm web trong stack <em>Laravel + Vue + React + Node</em> qua agency, design studio và contract cho Appif AI; từ đầu 2026 tôi ở Nasys xây POS/ERP ngành F&B bằng Flutter — kiêm luôn Laravel backend phía sau.
               </p>
               <p>
-                Tôi tin vào <em>clean architecture</em>, vào việc viết code để 6 tháng sau mình còn đọc được. Tôi tin vào việc đo lường trước khi tối ưu, và tin rằng một sản phẩm tốt là sản phẩm <em>được ship</em>, không phải sản phẩm hoàn hảo trong đầu.
+                Tôi tin vào <em>clean architecture</em>, vào việc viết code để 6 tháng sau mình còn đọc được, và vào cách dùng AI agent như một junior giỏi: đưa chuẩn, đưa spec, rồi đọc từng dòng nó trả về. Một sản phẩm tốt là sản phẩm <em>được ship</em>, không phải sản phẩm hoàn hảo trong đầu.
               </p>
             </>
           }
+          <div className="mono xs muted about-list-head">{t(lang, "Cách tôi giải quyết vấn đề", "How I solve problems")}</div>
           <ul className="about-list">
             {principles.map((p, i) =>
             <li key={i}><span className="mono xs">{String(i + 1).padStart(3, "0")} —</span> {p}</li>
@@ -538,38 +602,39 @@ function Skills() {
 
 }
 
-function Writing() {
+function AIEngineering() {
   const lang = useLang();
   return (
-    <section id="writing" className="section">
-      <SectionHead n="06" title={t(lang, "Bài viết", "Writing")} subtitle={t(lang, "Ghi chép từ thực chiến.", "Notes from the trenches.")} filed={t(lang, "Nhật ký", "Journal")} />
-      <ul className="writing-list">
-        {WRITING.map((w, i) =>
-        <li key={i} className="w-row">
-            <span className="mono xs w-date">{w.date}</span>
-            <div className="w-titles">
-              <span className="w-title">{lang === "en" ? w.titleEn : w.title}</span>
-            </div>
-            <span className="mono xs muted w-read">{w.read} {t(lang, "đọc", "read")} →</span>
-          </li>
-        )}
-      </ul>
-    </section>);
-
-}
-
-function Testimonials() {
-  const lang = useLang();
-  return (
-    <section id="testimonials" className="section section-tight">
-      <SectionHead n="07" title={t(lang, "Lời nhận xét", "Words")} subtitle={t(lang, "Từ những người tôi đã làm việc cùng.", "From people I've shipped with.")} filed={t(lang, "Lời chứng", "Testimonials")} />
-      <div className="quote-grid">
-        {TESTIMONIALS.map((q, i) =>
-        <figure key={i} className="quote">
-            <blockquote>"{lang === "en" ? q.en : q.vi}"</blockquote>
-            <figcaption className="mono xs"><strong>{q.author}</strong> — {q.role}</figcaption>
-          </figure>
-        )}
+    <section id="ai" className="section">
+      <SectionHead n="06" title={t(lang, "AI-assisted engineering", "AI-assisted engineering")} subtitle={t(lang, "AI draft, tôi thiết kế và review.", "AI drafts. I design and review.")} filed={t(lang, "Quy trình làm việc", "Workflow")} />
+      <div className="ai-grid">
+        <div className="ai-card">
+          <div className="mono xs muted">{t(lang, "Công cụ hằng ngày", "Daily tools")}</div>
+          <ul className="ai-tool-list">
+            {AI_WORKFLOW.tools.map((tool) =>
+            <li key={tool.name}>
+                <strong>{tool.name}</strong>
+                <span className="muted">{lang === "en" ? tool.use_en : tool.use_vi}</span>
+              </li>
+            )}
+          </ul>
+          <p className="ai-note muted">
+            {t(lang,
+            "Mọi diff do AI sinh ra đều qua tay tôi trước khi merge. Tôi coi agent là một junior giỏi: cần chuẩn, cần spec, và cần người đọc lại.",
+            "Every AI-generated diff goes through me before merge. I treat the agent as a strong junior: it needs a standard, a spec, and someone who reads its work.")}
+          </p>
+        </div>
+        <ol className="ai-principles">
+          {AI_WORKFLOW.principles.map((p, i) =>
+          <li key={i}>
+              <div className="mono xs muted">{String(i + 1).padStart(2, "0")}</div>
+              <div>
+                <div className="ai-p-title">{lang === "en" ? p.title_en : p.title_vi}</div>
+                <p className="ai-p-body">{lang === "en" ? p.body_en : p.body_vi}</p>
+              </div>
+            </li>
+          )}
+        </ol>
       </div>
     </section>);
 
@@ -579,7 +644,7 @@ function Contact() {
   const lang = useLang();
   return (
     <section id="contact" className="section section-contact">
-      <SectionHead n="08" title={t(lang, "Liên hệ", "Get in touch")} subtitle={t(lang, "Đang mở cho hợp đồng & vị trí senior.", "Open for contract & senior roles.")} filed={t(lang, "Liên hệ", "Contact")} />
+      <SectionHead n="07" title={t(lang, "Liên hệ", "Get in touch")} subtitle={t(lang, "Đang mở cho vị trí Flutter / Mobile và Full-stack.", "Open for Flutter / mobile and full-stack roles.")} filed={t(lang, "Liên hệ", "Contact")} />
       <div className="contact-grid">
         <div className="contact-main">
           <h3 className="display sm">
@@ -593,12 +658,14 @@ function Contact() {
           <a href={PROFILE.github} className="contact-link">GitHub<span>→</span></a>
           <a href={PROFILE.linkedin} className="contact-link">LinkedIn<span>→</span></a>
           <a href={`tel:${PROFILE.phone.replace(/\s/g, "")}`} className="contact-link">{PROFILE.phone}<span>↳</span></a>
-          <a href="uploads/TranNgocMinhThongCVFullStack.pdf" download className="contact-link">{t(lang, "Tải CV", "Download CV")}<span>↓</span></a>
+          <a href="cv.html" className="contact-link">{t(lang, "Xem CV online", "View CV online")}<span>→</span></a>
+          <a href="assets/TranNgocMinhThong-CV-EN.pdf" download className="contact-link">{t(lang, "Tải CV (EN)", "Download CV (EN)")}<span>↓</span></a>
+          <a href="assets/TranNgocMinhThong-CV-VI.pdf" download className="contact-link">{t(lang, "Tải CV (VI)", "Download CV (VI)")}<span>↓</span></a>
         </div>
       </div>
       <footer className="footer mono xs">
         <div>© 2026 {PROFILE.name}. {t(lang, "Thiết kế & xây tại", "Designed & built in")} {PROFILE.locationShort}.</div>
-        <div>{t(lang, "Cập nhật —", "Last updated —")} September 2026 · Set in Geist & JetBrains Mono</div>
+        <div>{t(lang, "Cập nhật —", "Last updated —")} October 2026 · Set in Geist & JetBrains Mono</div>
       </footer>
     </section>);
 
@@ -654,6 +721,31 @@ function CaseModal({ project, onClose }) {
                 </div>
               </div>
 
+              {d.decisions && d.decisions.length > 0 &&
+            <div className="case-block">
+                <div className="case-block-l mono small">{t(lang, "Quyết định kỹ thuật", "Key decisions")}</div>
+                <div className="case-block-r">
+                  <ol className="decisions">
+                    {d.decisions.map(([tv, te, wv, we], i) =>
+                  <li key={i}>
+                        <div className="decision-title">{lang === "en" ? te : tv}</div>
+                        <p className="muted">{lang === "en" ? we : wv}</p>
+                      </li>
+                  )}
+                  </ol>
+                </div>
+              </div>
+            }
+
+              {d.ai_vi &&
+            <div className="case-block">
+                <div className="case-block-l mono small">{t(lang, "AI trong dự án", "How AI was used")}</div>
+                <div className="case-block-r">
+                  <p>{lang === "en" ? d.ai_en : d.ai_vi}</p>
+                </div>
+              </div>
+            }
+
               {d.impact &&
             <div className="case-impact">
                   {d.impact.map(([n, l], i) =>
@@ -700,7 +792,7 @@ function App() {
   const [dark, setDark] = useState(true);
   const [lang, setLang] = useState("en");
   const [open, setOpen] = useState(null);
-  const active = useScrollSpy(["top", "work", "about", "experience", "skills", "writing", "contact"]);
+  const active = useScrollSpy(["top", "work", "about", "experience", "skills", "ai", "contact"]);
 
   useEffect(() => {
     document.documentElement.dataset.theme = dark ? "dark" : "light";
@@ -719,8 +811,7 @@ function App() {
           <About />
           <Experience />
           <Skills />
-          <Writing />
-          <Testimonials />
+          <AIEngineering />
           <Contact />
         </main>
         {open && <CaseModal project={open} onClose={() => setOpen(null)} />}
